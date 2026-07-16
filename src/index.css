@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}
+
+input, textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+@media print {
+  html, body {
+    display: none !important;
+  }
+}
+
+section,
+[id="about"],
+[id="services"],
+[id="company-profile"],
+[id="professionals"],
+[id="service-excellence"],
+[id="health-safety"],
+[id="team"],
+[id="faq-section"],
+[id="quote"] {
+  scroll-margin-top: var(--header-height, 120px) !important;
+}
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Montserrat", ui-monospace, monospace;
+
+  --color-blue-50: var(--color-emerald-50);
+  --color-blue-100: var(--color-emerald-100);
+  --color-blue-200: var(--color-emerald-200);
+  --color-blue-300: var(--color-emerald-300);
+  --color-blue-400: var(--color-emerald-400);
+  --color-blue-500: var(--color-emerald-500);
+  --color-blue-600: #006b47;
+  --color-blue-700: #005236;
+  --color-blue-800: var(--color-emerald-800);
+  --color-blue-900: var(--color-emerald-900);
+  --color-blue-950: var(--color-emerald-950);
+
+  --animate-marquee: marquee 60s linear infinite;
+  --animate-marquee2: marquee2 60s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @keyframes marquee2 {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+  }
+}

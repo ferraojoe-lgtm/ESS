@@ -1,0 +1,21 @@
+{
+  "__instructions": "Schema for Expert Standard Solutions",
+  "collections": {
+    "metadata": {
+      "rules": {
+        "read": "true",
+        "create": "true",
+        "update": "true",
+        "delete": "true"
+      }
+    },
+    "submissions": {
+      "rules": {
+        "read": "true",
+        "create": "true",
+        "update": "true",
+        "delete": "true"
+      }
+    }
+  }
+}

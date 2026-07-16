@@ -1,0 +1,8 @@
+{
+  "name": "Expert Standard Solution",
+  "description": "Facilities services company offering cleaning, maintenance, and valet services with online quote requests and admin dashboard.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

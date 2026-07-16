@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Submissions collection: anyone can submit (create), but only authenticated admin users can read, update, or delete.
+    match /submissions/{submissionId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Metadata collection: anyone can check if the admin exists (read), but writing is restricted.
+    match /metadata/{document} {
+      allow read: if true;
+      // Allow creation of the admin document if it doesn't exist yet, or let any authenticated user write to it.
+      allow write: if !exists(/databases/$(database)/documents/metadata/admin) || request.auth != null;
+    }
+  }
+}

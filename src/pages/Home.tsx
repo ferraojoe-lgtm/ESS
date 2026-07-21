@@ -10,7 +10,7 @@ import { cn } from '../lib/utils';
 import { useLanguage } from '../lib/LanguageContext';
 import founderSignature from '../assets/images/regenerated_image_1782636904447.png';
 import haseebTeamPortrait from '../assets/images/regenerated_image_1782899971595.jpg';
-import ServicesOverview from '../components/ServicesOverview';
+import InteractiveServicesShowcase from '../components/InteractiveServicesShowcase';
 
 function HeroSection() {
   const { t } = useLanguage();
@@ -1655,7 +1655,7 @@ export default function Home() {
         </script>
       </Helmet>
       <HeroSection />
-      <ServicesOverview />
+      <InteractiveServicesShowcase />
       <AboutSection />
       <TrustedClients />
       <TeamSection />

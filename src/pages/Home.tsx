@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
@@ -12,22 +12,77 @@ import founderSignature from '../assets/images/regenerated_image_1782636904447.p
 import haseebTeamPortrait from '../assets/images/regenerated_image_1782899971595.jpg';
 import InteractiveServicesShowcase from '../components/InteractiveServicesShowcase';
 
+function MobileOptimizedVideo({ src, poster, className }: { src: string; poster?: string; className?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('playsinline', 'true');
+    video.setAttribute('webkit-playsinline', 'true');
+
+    const tryPlay = () => {
+      if (video && video.paused) {
+        const promise = video.play();
+        if (promise !== undefined) {
+          promise.catch(() => {
+            // Autoplay deferred by browser policy
+          });
+        }
+      }
+    };
+
+    tryPlay();
+
+    const handleInteraction = () => {
+      tryPlay();
+    };
+
+    window.addEventListener('touchstart', handleInteraction, { passive: true, once: true });
+    window.addEventListener('touchmove', handleInteraction, { passive: true, once: true });
+    window.addEventListener('scroll', handleInteraction, { passive: true, once: true });
+    window.addEventListener('click', handleInteraction, { passive: true, once: true });
+
+    return () => {
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('touchmove', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('click', handleInteraction);
+    };
+  }, [src]);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay
+      loop
+      muted
+      playsInline
+      // @ts-ignore
+      webkit-playsinline="true"
+      preload="auto"
+      poster={poster}
+      className={className}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
+
 function HeroSection() {
   const { t } = useLanguage();
   
   return (
     <section id="home" className="relative overflow-hidden bg-white dark:bg-gray-950 transition-colors duration-300">
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
+        <MobileOptimizedVideo 
           poster="https://res.cloudinary.com/deed9nqtg/video/upload/f_auto,q_auto/v1781854154/Man_in_waistcoat_beside_SUV_202606191258_vtqbmj.jpg"
+          src="https://res.cloudinary.com/deed9nqtg/video/upload/f_auto,q_auto/v1781854154/Man_in_waistcoat_beside_SUV_202606191258_vtqbmj.mp4"
           className="w-full h-full object-cover object-center scale-100 md:scale-[1.25] md:origin-top-left"
-        >
-          <source src="https://res.cloudinary.com/deed9nqtg/video/upload/v1781854154/Man_in_waistcoat_beside_SUV_202606191258_vtqbmj.mp4" type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-white/40 dark:bg-gray-950/50 mix-blend-overlay transition-colors duration-300"></div>
       </div>
       
@@ -558,15 +613,10 @@ function QuoteRequestSection() {
   return (
     <section id="quote" className="py-24 relative overflow-hidden transition-colors duration-300">
       <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
+        <MobileOptimizedVideo 
+          src="https://res.cloudinary.com/deed9nqtg/video/upload/f_auto,q_auto/v1781856017/Businessman_interacting_with_hol__202606191330_emp0au.mp4"
           className="w-full h-full object-cover"
-        >
-          <source src="https://res.cloudinary.com/deed9nqtg/video/upload/q_auto,f_auto/v1781856017/Businessman_interacting_with_hol__202606191330_emp0au.mp4" type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-white/70 dark:bg-gray-950/80 backdrop-blur-[2px] transition-colors duration-300"></div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

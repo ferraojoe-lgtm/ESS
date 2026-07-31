@@ -131,7 +131,7 @@ export default function ServicesOverview() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="group relative flex flex-col justify-between bg-white dark:bg-gray-900/40 hover:bg-white dark:hover:bg-gray-900 rounded-2xl border border-gray-150 dark:border-gray-800/80 p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-xl hover:border-blue-500/20 dark:hover:border-blue-400/20 transition-all duration-300 transform hover:-translate-y-1 h-full"
+                className="group relative flex flex-col justify-between bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-900 rounded-2xl border border-white/80 dark:border-slate-800/80 p-6 sm:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 dark:hover:border-blue-400/40 transition-all duration-300 transform hover:-translate-y-1 h-full"
               >
                 <div>
                   {/* Icon & Badge Row */}

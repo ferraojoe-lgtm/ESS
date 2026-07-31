@@ -57,16 +57,16 @@ function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="flex flex-wrap justify-center gap-3.5 mb-10 max-w-3xl mx-auto"
           >
-            <div className="flex items-center gap-2.5 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-gray-200/80 dark:border-gray-800 shadow-md text-left transition-all duration-300 hover:scale-105 hover:border-blue-400/50">
-              <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">✓</span>
+            <div className="flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-4 py-3 rounded-2xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] text-left transition-all duration-300 hover:scale-105 hover:border-blue-400/60 hover:shadow-[0_15px_35px_rgba(59,130,246,0.18)]">
+              <span className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">✓</span>
               <span className="text-sm font-bold text-gray-900 dark:text-white">Premium Valet Management</span>
             </div>
-            <div className="flex items-center gap-2.5 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-gray-200/80 dark:border-gray-800 shadow-md text-left transition-all duration-300 hover:scale-105 hover:border-blue-400/50">
-              <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">✓</span>
+            <div className="flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-4 py-3 rounded-2xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] text-left transition-all duration-300 hover:scale-105 hover:border-blue-400/60 hover:shadow-[0_15px_35px_rgba(59,130,246,0.18)]">
+              <span className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">✓</span>
               <span className="text-sm font-bold text-gray-900 dark:text-white">Corporate Housekeeping</span>
             </div>
-            <div className="flex items-center gap-2.5 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-gray-200/80 dark:border-gray-800 shadow-md text-left transition-all duration-300 hover:scale-105 hover:border-blue-400/50">
-              <span className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">✓</span>
+            <div className="flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-4 py-3 rounded-2xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] text-left transition-all duration-300 hover:scale-105 hover:border-blue-400/60 hover:shadow-[0_15px_35px_rgba(59,130,246,0.18)]">
+              <span className="w-5 h-5 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">✓</span>
               <span className="text-sm font-bold text-gray-900 dark:text-white">Mechanized Deep Cleaning</span>
             </div>
           </motion.div>
@@ -142,9 +142,9 @@ function AboutSection() {
 
             {/* Mission & Vision Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <div className="bg-gradient-to-br from-blue-50/50 to-white dark:from-gray-900/40 dark:to-gray-950 p-8 rounded-3xl border border-gray-100 dark:border-gray-800/80 shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+              <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-8 rounded-3xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative overflow-hidden group hover:shadow-[0_20px_40px_rgba(59,130,246,0.12)] hover:-translate-y-1 transition-all duration-300">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-bl-full transition-all duration-300 group-hover:scale-110" />
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center rounded-2xl mb-6">
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center rounded-2xl mb-6 shadow-inner">
                   <Target className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Mission</h3>
@@ -153,9 +153,9 @@ function AboutSection() {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-green-50/30 to-white dark:from-gray-900/20 dark:to-gray-950 p-8 rounded-3xl border border-gray-100 dark:border-gray-800/80 shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+              <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-8 rounded-3xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative overflow-hidden group hover:shadow-[0_20px_40px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/5 rounded-bl-full transition-all duration-300 group-hover:scale-110" />
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center rounded-2xl mb-6">
+                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center rounded-2xl mb-6 shadow-inner">
                   <Compass className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Vision</h3>
@@ -298,33 +298,33 @@ function AboutSection() {
                 Safety is non-negotiable. We maintain uncompromising occupational health and safety benchmarks across all residential, banquet, and corporate sites.
               </p>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white/90 dark:bg-gray-900/90 p-6 rounded-2xl shadow-sm border border-green-200/60 dark:border-green-800/40 hover:shadow-md transition">
-                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Prevention</span>
+                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/80 dark:border-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Prevention</span>
                   <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Proactive Prevention</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">We inspect every site to find and fix any safety hazards before our team starts working.</p>
                 </div>
-                <div className="bg-white/90 dark:bg-gray-900/90 p-6 rounded-2xl shadow-sm border border-green-200/60 dark:border-green-800/40 hover:shadow-md transition">
-                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Protection</span>
+                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/80 dark:border-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Protection</span>
                   <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Maximum Protection</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">Our team always wears protective gear, uses safe cleaning products, and keeps keys secure.</p>
                 </div>
-                <div className="bg-white/90 dark:bg-gray-900/90 p-6 rounded-2xl shadow-sm border border-green-200/60 dark:border-green-800/40 hover:shadow-md transition">
-                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Excellence</span>
+                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/80 dark:border-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Excellence</span>
                   <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Safety Excellence</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">We keep spaces clean and disinfected to the highest standards without taking shortcuts.</p>
                 </div>
-                <div className="bg-white/90 dark:bg-gray-900/90 p-6 rounded-2xl shadow-sm border border-green-200/60 dark:border-green-800/40 hover:shadow-md transition">
-                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Support</span>
+                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/80 dark:border-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Support</span>
                   <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Dedicated Support</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">We have round-the-clock supervisors ready to help and respond to any urgent requests.</p>
                 </div>
-                <div className="bg-white/90 dark:bg-gray-900/90 p-6 rounded-2xl shadow-sm border border-green-200/60 dark:border-green-800/40 hover:shadow-md transition">
-                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Compliance</span>
+                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/80 dark:border-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Compliance</span>
                   <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Full Statutory Compliance</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">We follow all local laws, treat our staff fairly, and use eco-friendly practices.</p>
                 </div>
-                <div className="bg-white/90 dark:bg-gray-900/90 p-6 rounded-2xl shadow-sm border border-green-200/60 dark:border-green-800/40 hover:shadow-md transition">
-                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Continual Improvement</span>
+                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/80 dark:border-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)] hover:-translate-y-1 transition-all duration-300">
+                  <span className="text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400 bg-green-100/80 dark:bg-green-900/50 px-3 py-1 rounded-md mb-3 inline-block">Continual Improvement</span>
                   <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Continual Improvement</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">We train our staff regularly and use the latest safe, eco-friendly equipment.</p>
                 </div>
@@ -1447,23 +1447,23 @@ function TrustedClients() {
             transition={{ duration: 0.6 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-800/80 shadow-md hover:shadow-lg hover:border-blue-500/30 dark:hover:border-blue-400/30 transition-all duration-300 flex flex-col items-center text-center group">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300">🏢</div>
+            <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-inner">🏢</div>
               <h4 className="font-bold text-base text-gray-900 dark:text-white">IT & Tech Corridors</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">Hitec City, Gachibowli, & Financial District Complexes</p>
             </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-800/80 shadow-md hover:shadow-lg hover:border-blue-500/30 dark:hover:border-blue-400/30 transition-all duration-300 flex flex-col items-center text-center group">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300">🏥</div>
+            <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-inner">🏥</div>
               <h4 className="font-bold text-base text-gray-900 dark:text-white">Healthcare</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">Super-Specialty Hospitals, Diagnostics & Research Hubs</p>
             </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-800/80 shadow-md hover:shadow-lg hover:border-blue-500/30 dark:hover:border-blue-400/30 transition-all duration-300 flex flex-col items-center text-center group">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300">🏨</div>
+            <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-inner">🏨</div>
               <h4 className="font-bold text-base text-gray-900 dark:text-white">Luxury Hospitality</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">Banjara Hills, Jubilee Hills, & Gachibowli Premium Hotels & Clubs</p>
             </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200/80 dark:border-gray-800/80 shadow-md hover:shadow-lg hover:border-blue-500/30 dark:hover:border-blue-400/30 transition-all duration-300 flex flex-col items-center text-center group">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300">🛍️</div>
+            <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/80 dark:border-slate-800/80 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-inner">🛍️</div>
               <h4 className="font-bold text-base text-gray-900 dark:text-white">Commercial Hubs</h4>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">Premium Retail Spaces, Corporate Office Parks & Enterprise Centers</p>
             </div>
@@ -1476,7 +1476,7 @@ function TrustedClients() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="relative group overflow-hidden rounded-3xl bg-white/95 dark:bg-gray-900/95 border border-gray-200 dark:border-gray-800 shadow-xl hover:shadow-2xl transition-all duration-500 p-6 md:p-10 flex flex-col items-center justify-center">
+            <div className="relative group overflow-hidden rounded-3xl bg-white/85 dark:bg-slate-900/85 backdrop-blur-2xl border border-white/80 dark:border-slate-800/80 shadow-[0_15px_35px_rgba(0,0,0,0.08)] dark:shadow-[0_15px_35px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.12)] transition-all duration-500 p-6 md:p-10 flex flex-col items-center justify-center">
               {/* Background ambient glow behind the logo sheet */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/5 via-transparent to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl pointer-events-none" />
               

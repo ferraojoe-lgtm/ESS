@@ -40,6 +40,8 @@ import {
   Copy,
   Check,
   Mail,
+  Navigation,
+  ExternalLink,
 } from "lucide-react";
 import Home from "./pages/Home";
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
@@ -114,12 +116,12 @@ function TopInfoBar() {
     const timer = setInterval(() => setTime(new Date()), 60000);
 
     async function fetchLocationAndWeather() {
-      // Use cached weather data if available and less than 30 minutes old to avoid blocking API fetches
+      // Use cached weather data for Hyderabad if available and less than 30 minutes old
       try {
-        const cached = sessionStorage.getItem("ess_cached_weather");
+        const cached = sessionStorage.getItem("ess_cached_weather_hyd");
         if (cached) {
           const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < 30 * 60 * 1000) {
+          if (data && data.city === "Hyderabad" && Date.now() - timestamp < 30 * 60 * 1000) {
             setWeather(data);
             return;
           }
@@ -129,26 +131,9 @@ function TopInfoBar() {
       }
 
       try {
-        let lat = 17.385;
-        let lon = 78.4867;
-        let city = "Hyderabad";
-
-        try {
-          const geoRes = await fetch("https://get.geojs.io/v1/ip/geo.json");
-          if (geoRes.ok) {
-            const geoData = await geoRes.json();
-            if (geoData.latitude && geoData.longitude) {
-              lat = parseFloat(geoData.latitude);
-              lon = parseFloat(geoData.longitude);
-              city = geoData.city || city;
-            }
-          }
-        } catch (geoErr) {
-          console.warn(
-            "Geolocation fetch failed, using default location:",
-            geoErr,
-          );
-        }
+        const lat = 17.385;
+        const lon = 78.4867;
+        const city = "Hyderabad";
 
         const weatherRes = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`,
@@ -164,7 +149,7 @@ function TopInfoBar() {
             setWeather(weatherObj);
             try {
               sessionStorage.setItem(
-                "ess_cached_weather",
+                "ess_cached_weather_hyd",
                 JSON.stringify({ data: weatherObj, timestamp: Date.now() })
               );
             } catch (storageErr) {
@@ -179,7 +164,7 @@ function TopInfoBar() {
         setWeather({
           temp: 28,
           code: 2,
-          city: "Hyderabad (Offline)",
+          city: "Hyderabad",
         });
       }
     }
@@ -1455,8 +1440,8 @@ function CompanyAddress() {
             +91 73868 43005
           </a>
         </div>
-        <div className="pt-4 md:pt-6 border-t border-gray-800/40" onClick={(e) => e.stopPropagation()}>
-          <div className="w-full h-32 md:h-40 rounded-lg overflow-hidden border border-gray-800 bg-gray-950 relative group/map">
+        <div className="pt-4 md:pt-6 border-t border-gray-800/40 space-y-3" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full h-32 md:h-40 rounded-xl overflow-hidden border border-gray-800 bg-gray-950 relative group/map">
             <iframe
               title="Expert Standard Solution Location Map"
               src="https://maps.google.com/maps?q=Expert%20Standard%20Solution,%20Pillar%20Number%20143,%20Attapur,%20Hyderabad,%20Telangana%20500048&t=&z=16&ie=UTF8&iwloc=&output=embed"
@@ -1465,7 +1450,30 @@ function CompanyAddress() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+            {/* Quick Map Link Overlay */}
+            <a
+              href="https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9"
+              target="_blank"
+              rel="noreferrer"
+              className="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-gray-900/90 hover:bg-blue-600 text-white text-xs font-medium shadow-lg backdrop-blur-md transition-all duration-200 flex items-center gap-1.5 border border-gray-700/80 hover:border-blue-500 group-hover/map:scale-105"
+            >
+              <Navigation className="w-3.5 h-3.5 text-blue-400 group-hover/map:text-white" />
+              <span>Directions</span>
+            </a>
           </div>
+
+          {/* Prominent Touch-Friendly View in Google Maps Button */}
+          <a
+            href="https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9"
+            target="_blank"
+            rel="noreferrer"
+            className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-blue-500/20 transition-all duration-200 border border-blue-400/30 active:scale-[0.99] group/gmap cursor-pointer"
+            id="footer-google-maps-btn"
+          >
+            <MapPin className="w-4 h-4 text-blue-200 group-hover/gmap:scale-110 transition-transform shrink-0" />
+            <span>View in Google Maps</span>
+            <ExternalLink className="w-3.5 h-3.5 text-blue-200 shrink-0 ml-auto" />
+          </a>
         </div>
       </div>
       <button

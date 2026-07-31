@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { Sparkles, Building2, Car, Shield, ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, ChevronDown, Clock, Star, Wrench, Quote, Users, Award, Heart, Leaf, Briefcase, UserCheck, Headphones, Target, Compass, Video, Lock, AlertCircle, Hotel, Key, Calendar, Bell, Eye, Fingerprint, CreditCard, Cpu, Coffee, Bug, Phone, ExternalLink, Search, HelpCircle, ArrowRight, MessageCircle } from 'lucide-react';
+import { Sparkles, Building2, Car, Shield, ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, ChevronDown, Clock, Star, Wrench, Quote, Users, Award, Heart, Leaf, Briefcase, UserCheck, Headphones, Target, Compass, Video, Lock, AlertCircle, Hotel, Key, Calendar, Bell, Eye, Fingerprint, CreditCard, Cpu, Coffee, Bug, Phone, ExternalLink, Search, HelpCircle, ArrowRight, MessageCircle, X } from 'lucide-react';
 import { SERVICES } from '../lib/constants';
 import { cn } from '../lib/utils';
 import { useLanguage } from '../lib/LanguageContext';
@@ -30,6 +30,7 @@ function HeroSection() {
         </video>
         <div className="absolute inset-0 bg-white/40 dark:bg-gray-950/50 mix-blend-overlay transition-colors duration-300"></div>
       </div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 pb-20 md:pb-28 relative z-10 min-h-[calc(100vh-140px)] flex items-center justify-center">
         <div className="text-center max-w-4xl mx-auto pt-[120px] pl-[1px]">
           <motion.div
@@ -930,6 +931,16 @@ function FAQSection() {
       question: "How do you handle staff absenteeism to ensure continuity?",
       answer: "We maintain a 15% backup buffer force of trained, on-call personnel. If an on-site steward or supervisor is absent, our operations desk automatically deploys an equivalent replacement within 2 hours to ensure uninterrupted operations.",
       category: "staffing"
+    },
+    {
+      question: "What statutory compliance and certification standards does ESS follow?",
+      answer: "ESS adheres strictly to standard statutory compliance, including PF, ESI, minimum wage regulations, and ISO 9001:2015 quality frameworks. All deployed personnel are fully insured and documented.",
+      category: "staffing"
+    },
+    {
+      question: "How quickly can emergency or additional staffing be deployed?",
+      answer: "For urgent events, sudden facility surges, or emergency cleanups in Hyderabad, our rapid response team can deploy verified backup personnel within 2 to 4 hours of confirmation.",
+      category: "facility"
     }
   ];
 
@@ -937,7 +948,7 @@ function FAQSection() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // Filter FAQs based on category and search query
+  // Filter FAQs based on category and search query in real time
   const filteredFaqs = faqs.filter(faq => {
     const matchesCategory = selectedCategory === 'all' || faq.category === selectedCategory;
     const matchesSearch = searchQuery.trim() === '' || 
@@ -946,13 +957,13 @@ function FAQSection() {
     return matchesCategory && matchesSearch;
   });
 
-  // Reset open accordion item on category change or search change to avoid mismatching indices
+  // Reset open accordion item on category change or search change to prevent mismatch
   useEffect(() => {
     setOpenIndex(null);
   }, [selectedCategory, searchQuery]);
 
   return (
-    <section className="py-24 bg-slate-50 dark:bg-slate-900/40 transition-colors duration-300 relative overflow-hidden" id="faq-section">
+    <section className="py-20 md:py-24 bg-slate-50 dark:bg-slate-900/40 transition-colors duration-300 relative overflow-hidden" id="faq-section">
       {/* Decorative ambient blobs */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue-100/30 dark:bg-blue-900/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-emerald-100/30 dark:bg-emerald-900/5 rounded-full blur-3xl pointer-events-none" />
@@ -962,20 +973,20 @@ function FAQSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10 md:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4">
-            <HelpCircle className="w-4 h-4 animate-bounce" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs sm:text-sm font-semibold mb-3">
+            <HelpCircle className="w-4 h-4 text-blue-500 animate-pulse" />
             <span>Common Queries Answered</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">Frequently Asked Questions</h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">Frequently Asked Questions</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             Find instant answers to everything you need to know about our premier facility management services, housekeeping, and staffing standards.
           </p>
         </motion.div>
 
         {/* Search & Filter Bar */}
-        <div className="mb-10 space-y-6">
+        <div className="mb-8 space-y-4">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
             <input
@@ -983,27 +994,28 @@ function FAQSection() {
               placeholder="Search FAQs (e.g., deep cleaning, valet, backup)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm md:text-base shadow-sm"
+              className="w-full pl-12 pr-10 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm md:text-base shadow-sm"
               id="faq-search-input"
             />
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+                aria-label="Clear search"
               >
-                Clear
+                <X className="w-4 h-4" />
               </button>
             )}
           </div>
 
-          {/* Categories Tabs */}
-          <div className="flex flex-wrap justify-center gap-2">
+          {/* Categories Tabs - Touch friendly horizontal scroll on mobile */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1.5 sm:pb-0 sm:flex-wrap justify-start sm:justify-center no-scrollbar">
             {faqCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
                 className={cn(
-                  "px-4 py-2 text-xs md:text-sm font-semibold rounded-xl transition duration-300 cursor-pointer",
+                  "px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0",
                   selectedCategory === category.id
                     ? "bg-blue-600 text-white dark:bg-blue-500 dark:text-slate-950 shadow-md shadow-blue-600/15"
                     : "bg-white dark:bg-gray-950 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 border border-gray-200 dark:border-gray-800"
@@ -1014,44 +1026,56 @@ function FAQSection() {
               </button>
             ))}
           </div>
+
+          {/* Dynamic Result Count Badge */}
+          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 px-1 pt-1">
+            <span>Showing <strong className="text-gray-700 dark:text-gray-300">{filteredFaqs.length}</strong> {filteredFaqs.length === 1 ? 'question' : 'questions'}</span>
+            {searchQuery && (
+              <span className="text-blue-600 dark:text-blue-400 font-medium truncate max-w-[200px]">
+                Filtered by: "{searchQuery}"
+              </span>
+            )}
+          </div>
         </div>
 
         {/* FAQs Accordion Grid */}
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           <AnimatePresence mode="popLayout">
             {filteredFaqs.length > 0 ? (
-              filteredFaqs.map((faq, index) => {
+              filteredFaqs.map((faq) => {
                 const globalIndex = faqs.findIndex(f => f.question === faq.question);
                 const isOpen = openIndex === globalIndex;
                 return (
                   <motion.div 
                     key={faq.question} 
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -15 }}
+                    exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-white dark:bg-gray-950 transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-700"
+                    className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-white dark:bg-gray-950 transition-all duration-200 hover:shadow-sm hover:border-gray-300 dark:hover:border-gray-700"
                   >
                     <button
                       onClick={() => setOpenIndex(isOpen ? null : globalIndex)}
-                      className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer"
+                      className="w-full px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
                       aria-expanded={isOpen}
                       id={`faq-btn-${globalIndex}`}
                     >
-                      <span className="font-semibold text-gray-900 dark:text-white text-base md:text-lg pr-4">{faq.question}</span>
-                      <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-gray-50 dark:bg-gray-900 flex items-center justify-center border border-gray-100 dark:border-gray-850">
+                      <span className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base md:text-lg pr-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {faq.question}
+                      </span>
+                      <span className="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-50 dark:bg-gray-900 flex items-center justify-center border border-gray-100 dark:border-gray-850">
                         <ChevronDown 
-                          className={cn("w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-300", isOpen && "rotate-180")} 
+                          className={cn("w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-300", isOpen && "rotate-180 text-blue-600 dark:text-blue-400")} 
                         />
                       </span>
                     </button>
                     <motion.div
                       initial={false}
                       animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-1 text-gray-600 dark:text-gray-400 leading-relaxed text-sm md:text-base border-t border-gray-50 dark:border-gray-900/60 mt-1">
+                      <div className="px-5 sm:px-6 pb-5 pt-1 text-gray-600 dark:text-gray-400 leading-relaxed text-xs sm:text-sm md:text-base border-t border-gray-100 dark:border-gray-900/60 mt-1">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -1062,16 +1086,16 @@ function FAQSection() {
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center py-12 px-4 border border-dashed border-gray-300 dark:border-gray-800 rounded-3xl bg-white dark:bg-gray-950"
+                className="text-center py-10 px-4 border border-dashed border-gray-300 dark:border-gray-800 rounded-2xl bg-white dark:bg-gray-950"
               >
-                <HelpCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">No FAQs match your search</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                <HelpCircle className="w-10 h-10 text-gray-400 mx-auto mb-3" />
+                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">No FAQs match your search</h3>
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-5 max-w-md mx-auto">
                   We couldn't find any FAQs matching "{searchQuery}". Try refining your keywords or browse another category.
                 </p>
                 <a
                   href="#quote"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition"
                   id="faq-fallback-quote-btn"
                 >
                   Ask us directly
@@ -1086,9 +1110,9 @@ function FAQSection() {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 text-center"
+          className="mt-10 md:mt-12 text-center"
         >
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">
             Have a different question about your specific site requirements?{' '}
             <a 
               href="#quote" 
@@ -1577,7 +1601,115 @@ export default function Home() {
           { "@type": "AdministrativeArea", "name": "Jubilee Hills, Hyderabad" },
           { "@type": "AdministrativeArea", "name": "Banjara Hills, Hyderabad" },
           { "@type": "AdministrativeArea", "name": "HITEC City, Hyderabad" }
-        ]
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "ESS Facility Management & Valet Parking Services",
+          "itemListElement": [
+            {
+              "@type": "OfferCatalog",
+              "name": "Valet Parking Management Solutions",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Luxury Hotel Valet Parking Services",
+                    "url": "https://expertstandardsolution.com/hotel-valet-services-hyderabad",
+                    "description": "5-star luxury hotel valet and driveway management services in Hyderabad with uniformed chauffeurs and key tracking."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Corporate Office Valet Parking Services",
+                    "url": "https://expertstandardsolution.com/corporate-valet-services-hyderabad",
+                    "description": "Enterprise valet and parking lot management for IT parks and commercial complexes in Hyderabad."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Restaurant & Fine Dining Valet Services",
+                    "url": "https://expertstandardsolution.com/restaurant-valet-services-hyderabad",
+                    "description": "VIP restaurant valet and patron arrival solutions in Jubilee Hills, Banjara Hills, and Gachibowli."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Event & Wedding Valet Services",
+                    "url": "https://expertstandardsolution.com/event-valet-services-hyderabad",
+                    "description": "On-demand wedding, convention, and gala valet parking management with fast vehicle retrieval."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Residential Apartment Valet Services",
+                    "url": "https://expertstandardsolution.com/apartment-valet-services-hyderabad",
+                    "description": "Gated society and luxury high-rise apartment parking management in Hyderabad."
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "OfferCatalog",
+              "name": "Integrated Facility Management Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Corporate Housekeeping Services",
+                    "url": "https://expertstandardsolution.com/housekeeping-services-hyderabad",
+                    "description": "Professional corporate housekeeping, daily sanitation, and facility maintenance in Hyderabad."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Mechanized Deep Cleaning Services",
+                    "url": "https://expertstandardsolution.com/deep-cleaning-services-hyderabad",
+                    "description": "Clinical-grade mechanized deep cleaning, carpet shampooing, and tile scrubbing."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "High-Rise Facade Glass Cleaning",
+                    "url": "https://expertstandardsolution.com/facade-cleaning-services-hyderabad",
+                    "description": "IRATA certified abseiling and facade glass cleaning for commercial towers."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "CCTV & Remote Surveillance Monitoring",
+                    "url": "https://expertstandardsolution.com/cctv-monitoring-services-hyderabad",
+                    "description": "24/7 central command monitoring and AI perimeter intrusion defense in Hyderabad."
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Certified Pest Control & Eradication",
+                    "url": "https://expertstandardsolution.com/pest-control-services-hyderabad",
+                    "description": "Eco-friendly commercial pest control, termite eradication, and clinical disinfection."
+                  }
+                }
+              ]
+            }
+          ]
+        }
       },
       {
         "@type": "Organization",

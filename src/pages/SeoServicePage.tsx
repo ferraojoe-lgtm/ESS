@@ -44,42 +44,47 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
 
   const schemaGraph = React.useMemo(() => {
     if (!config) return null;
+    const pageUrl = `https://expertstandardsolution.com/${config.slug}`;
     return {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "Service",
-          "@id": `https://expertstandardsolution.com/${config.slug}#service`,
-          "name": config.title,
-          "serviceType": config.serviceCategory,
-          "description": config.metaDescription,
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Expert Standard Solution (ESS)",
-            "image": "https://expertstandardsolution.com/logo.png",
-            "telephone": "+91 73868 43005",
-            "email": "info@expertstandardsolution.com",
-            "url": "https://expertstandardsolution.com",
-            "priceRange": "₹₹",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Pillar Number 143, Plot No 4-3-119/5, 1st Floor, Near, Attapur",
-              "addressLocality": "Hyderabad",
-              "addressRegion": "Telangana",
-              "postalCode": "500048",
-              "addressCountry": "IN"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 17.3730,
-              "longitude": 78.4350
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.9",
-              "reviewCount": "184",
-              "bestRating": "5"
-            }
+          "@type": "LocalBusiness",
+          "@id": "https://expertstandardsolution.com/#organization",
+          "name": "Expert Standard Solution (ESS)",
+          "alternateName": "ESS Hyderabad",
+          "url": "https://expertstandardsolution.com",
+          "logo": "https://res.cloudinary.com/deed9nqtg/image/upload/v1782989113/ESSfinalone_zdxt3v.png",
+          "image": "https://res.cloudinary.com/deed9nqtg/image/upload/v1781960576/WhatsApp_Image_2026-06-20_at_14.12.43_mwplyj.jpg",
+          "description": "Premier commercial facility management, corporate housekeeping, deep cleaning, and professional valet parking management services in Hyderabad.",
+          "telephone": "+91 73868 43005",
+          "email": "info@expertstandardsolution.com",
+          "priceRange": "₹₹",
+          "hasMap": "https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Pillar Number 143, Plot No 4-3-119/5, 1st Floor, Near, Attapur",
+            "addressLocality": "Hyderabad",
+            "addressRegion": "Telangana",
+            "postalCode": "500048",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 17.3730,
+            "longitude": 78.4350
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "184",
+            "bestRating": "5"
           },
           "areaServed": config.hyderabadAreas.map(area => ({
             "@type": "AdministrativeArea",
@@ -87,8 +92,61 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
           }))
         },
         {
+          "@type": "Service",
+          "@id": `${pageUrl}#service`,
+          "name": config.title,
+          "serviceType": config.serviceCategory,
+          "description": config.metaDescription,
+          "provider": {
+            "@id": "https://expertstandardsolution.com/#organization"
+          },
+          "url": pageUrl,
+          "termsOfService": "https://expertstandardsolution.com/terms",
+          "areaServed": config.hyderabadAreas.map(area => ({
+            "@type": "AdministrativeArea",
+            "name": `${area}, Hyderabad, Telangana`
+          })),
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": config.title,
+            "itemListElement": config.keyBenefits.map((feat, idx) => ({
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": feat.title,
+                "description": feat.description
+              },
+              "position": idx + 1
+            }))
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${pageUrl}#breadcrumb`,
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://expertstandardsolution.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Services",
+              "item": "https://expertstandardsolution.com/#services-overview"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": config.serviceCategory,
+              "item": pageUrl
+            }
+          ]
+        },
+        {
           "@type": "FAQPage",
-          "@id": `https://expertstandardsolution.com/${config.slug}#faq`,
+          "@id": `${pageUrl}#faq`,
           "mainEntity": config.faqs.map(faq => ({
             "@type": "Question",
             "name": faq.question,

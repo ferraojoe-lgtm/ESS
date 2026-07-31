@@ -42,7 +42,9 @@ import {
   Mail,
   Navigation,
   ExternalLink,
+  QrCode,
 } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import Home from "./pages/Home";
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Careers = React.lazy(() => import("./pages/Careers"));
@@ -91,6 +93,67 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
+  );
+}
+
+const NavTransitionContext = React.createContext<{
+  triggerTransition: (action?: () => void, label?: string) => void;
+}>({
+  triggerTransition: () => {},
+});
+
+export const useNavTransition = () => React.useContext(NavTransitionContext);
+
+function NavTransitionProvider({ children }: { children: React.ReactNode }) {
+  const [isTransitioning, setIsTransitioning] = React.useState(false);
+  const [navLabel, setNavLabel] = React.useState<string | null>(null);
+
+  const triggerTransition = React.useCallback((action?: () => void, label?: string) => {
+    setIsTransitioning(true);
+    if (label) setNavLabel(label);
+
+    setTimeout(() => {
+      if (action) {
+        action();
+      }
+    }, 90);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setNavLabel(null);
+    }, 320);
+  }, []);
+
+  return (
+    <NavTransitionContext.Provider value={{ triggerTransition }}>
+      {children}
+      <AnimatePresence>
+        {isTransitioning && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="fixed inset-0 z-[200] pointer-events-none flex items-center justify-center bg-white/70 dark:bg-slate-950/70 backdrop-blur-2xl shadow-2xl"
+          >
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0, y: 12 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="px-6 py-3.5 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-white/80 dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center gap-3.5"
+            >
+              <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 to-emerald-500 text-white flex items-center justify-center shadow-md animate-pulse">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <span className="text-sm font-bold text-gray-900 dark:text-white tracking-wide">
+                {navLabel ? `Opening ${navLabel}...` : "Switching section..."}
+              </span>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </NavTransitionContext.Provider>
   );
 }
 
@@ -288,6 +351,9 @@ function NewsTicker() {
 }
 function ScrollToTopButton() {
   const [show, setShow] = React.useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { triggerTransition } = useNavTransition();
 
   React.useEffect(() => {
     let ticking = false;
@@ -311,12 +377,21 @@ function ScrollToTopButton() {
 
   if (!show) return null;
 
+  const handleClick = () => {
+    triggerTransition(() => {
+      if (location.pathname !== "/") {
+        navigate("/");
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+    }, "Home");
+  };
+
   return (
     <button
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onClick={handleClick}
       style={{ height: "44px", width: "44px" }}
-      className="fixed bottom-20 right-6 z-50 p-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hidden md:flex items-center justify-center border-2 border-white dark:border-gray-800 group"
-      aria-label="Scroll to top"
+      className="fixed bottom-20 right-4 sm:right-6 z-50 p-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center border-2 border-white dark:border-gray-800 group cursor-pointer"
+      aria-label="Take me home"
       title="Take me home"
     >
       <ArrowUp className="w-5 h-5 transition-transform group-hover:-translate-y-0.5" />
@@ -589,42 +664,59 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
   ];
 
   const navigate = useNavigate();
+  const { triggerTransition } = useNavTransition();
 
-  const handleNavClick = (path: string) => {
+  const handleNavClick = (path: string, label?: string) => {
     setIsOpen(false);
     setActiveDropdown(null);
-    if (path.startsWith("/#")) {
-      const id = path.replace("/#", "");
-      if (location.pathname !== "/") {
-        navigate(path);
-      } else {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const getActualHeaderHeight = () => {
-            const topBar = document.querySelector("header > div:first-child") as HTMLElement;
-            const navContainer = document.querySelector("nav > div.max-w-7xl") as HTMLElement;
-            if (navContainer) {
-              let height = navContainer.offsetHeight;
-              if (topBar && !topBar.classList.contains("max-h-0")) {
-                height += topBar.offsetHeight;
-              }
-              return height;
-            }
-            return document.querySelector("header")?.offsetHeight || 120;
-          };
-          const headerHeight = getActualHeaderHeight();
-          window.scrollTo({
-            top: rect.top + scrollTop - headerHeight,
-            behavior: "smooth"
-          });
-          window.history.pushState(null, "", path);
-        } else {
+    triggerTransition(() => {
+      if (path.startsWith("/#")) {
+        const id = path.replace("/#", "");
+        if (location.pathname !== "/") {
           navigate(path);
+        } else {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const getActualHeaderHeight = () => {
+              const topBar = document.querySelector("header > div:first-child") as HTMLElement;
+              const navContainer = document.querySelector("nav > div.max-w-7xl") as HTMLElement;
+              if (navContainer) {
+                let height = navContainer.offsetHeight;
+                if (topBar && !topBar.classList.contains("max-h-0")) {
+                  height += topBar.offsetHeight;
+                }
+                return height;
+              }
+              return document.querySelector("header")?.offsetHeight || 120;
+            };
+            const headerHeight = getActualHeaderHeight();
+            window.scrollTo({
+              top: rect.top + scrollTop - headerHeight,
+              behavior: "instant" as ScrollBehavior
+            });
+            window.history.pushState(null, "", path);
+
+            try {
+              el.animate(
+                [
+                  { opacity: 0.7, transform: "scale(0.985)" },
+                  { opacity: 1, transform: "scale(1)" }
+                ],
+                { duration: 400, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+              );
+            } catch {
+              // fallback
+            }
+          } else {
+            navigate(path);
+          }
         }
+      } else {
+        navigate(path);
       }
-    }
+    }, label);
   };
 
   const linkStyle = { fontFamily: "Montserrat, sans-serif" };
@@ -656,7 +748,7 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
                 onClick={(e) => {
                   if (location.pathname === "/") {
                     e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }), "Home");
                   }
                 }}
               >
@@ -703,7 +795,7 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
                 onClick={(e) => {
                   if (location.pathname === "/") {
                     e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }), "Home");
                   }
                 }}
                 style={linkStyle}
@@ -901,7 +993,7 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
                   onClick={() => {
                     setIsOpen(false);
                     if (location.pathname === "/") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }), "Home");
                     }
                   }}
                   className="block px-3 py-2.5 rounded-xl font-bold text-[16px] text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
@@ -1066,6 +1158,7 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
 function Footer() {
   const { t } = useLanguage();
   const location = useLocation();
+  const { triggerTransition } = useNavTransition();
 
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16 pb-28 md:pb-16 border-t border-gray-800/80">
@@ -1083,7 +1176,7 @@ function Footer() {
             <div>
               <Link
                 to="/"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                onClick={() => triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }), "Home")}
                 className="inline-block"
               >
                 <motion.div
@@ -1139,7 +1232,7 @@ function Footer() {
                   to="/valet-parking-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/valet-parking-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1153,7 +1246,7 @@ function Footer() {
                   to="/housekeeping-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/housekeeping-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1167,7 +1260,7 @@ function Footer() {
                   to="/deep-cleaning-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/deep-cleaning-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1181,7 +1274,7 @@ function Footer() {
                   to="/facade-cleaning-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/facade-cleaning-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1195,7 +1288,7 @@ function Footer() {
                   to="/cctv-monitoring-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/cctv-monitoring-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1209,7 +1302,7 @@ function Footer() {
                   to="/access-control-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/access-control-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1223,7 +1316,7 @@ function Footer() {
                   to="/manpower-supply-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/manpower-supply-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1237,7 +1330,7 @@ function Footer() {
                   to="/pest-control-services-hyderabad"
                   onClick={() => {
                     if (location.pathname === "/pest-control-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
@@ -1264,7 +1357,7 @@ function Footer() {
               <li>
                 <Link
                   to="/"
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  onClick={() => triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }), "Home")}
                   className="hover:text-white transition-colors"
                 >
                   Home
@@ -1298,7 +1391,7 @@ function Footer() {
               <li>
                 <Link
                   to="/sitemap"
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  onClick={() => triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }), "Sitemap")}
                   className="hover:text-white transition-colors"
                 >
                   Sitemap
@@ -1395,7 +1488,9 @@ function Footer() {
 function CompanyAddress() {
   const [copied, setCopied] = React.useState(false);
   const [showCopyBtn, setShowCopyBtn] = React.useState(false);
+  const [showQrOverlay, setShowQrOverlay] = React.useState(false);
   const addressText = "Pillar Number 143, Plot No 4-3-119/5, 1st Floor, Near, Attapur, Hyderabad, Telangana 500048\nEmail: info@expertstandardsolution.com\nPhone: +91 73868 43005";
+  const mapLocationUrl = "https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9";
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -1440,7 +1535,7 @@ function CompanyAddress() {
             +91 73868 43005
           </a>
         </div>
-        <div className="pt-4 md:pt-6 border-t border-gray-800/40 space-y-3" onClick={(e) => e.stopPropagation()}>
+        <div className="pt-4 md:pt-6 border-t border-gray-800/40 space-y-3 relative" onClick={(e) => e.stopPropagation()}>
           <div className="w-full h-32 md:h-40 rounded-xl overflow-hidden border border-gray-800 bg-gray-950 relative group/map">
             <iframe
               title="Expert Standard Solution Location Map"
@@ -1452,7 +1547,7 @@ function CompanyAddress() {
             ></iframe>
             {/* Quick Map Link Overlay */}
             <a
-              href="https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9"
+              href={mapLocationUrl}
               target="_blank"
               rel="noreferrer"
               className="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-gray-900/90 hover:bg-blue-600 text-white text-xs font-medium shadow-lg backdrop-blur-md transition-all duration-200 flex items-center gap-1.5 border border-gray-700/80 hover:border-blue-500 group-hover/map:scale-105"
@@ -1463,17 +1558,79 @@ function CompanyAddress() {
           </div>
 
           {/* Prominent Touch-Friendly View in Google Maps Button */}
-          <a
-            href="https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9"
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={() => setShowQrOverlay((prev) => !prev)}
+            type="button"
             className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-blue-500/20 transition-all duration-200 border border-blue-400/30 active:scale-[0.99] group/gmap cursor-pointer"
             id="footer-google-maps-btn"
           >
             <MapPin className="w-4 h-4 text-blue-200 group-hover/gmap:scale-110 transition-transform shrink-0" />
             <span>View in Google Maps</span>
-            <ExternalLink className="w-3.5 h-3.5 text-blue-200 shrink-0 ml-auto" />
-          </a>
+            <QrCode className="w-4 h-4 text-blue-200 shrink-0 ml-auto group-hover/gmap:scale-110 transition-transform" />
+          </button>
+
+          {/* QR Code Scan Modal / Popover Overlay */}
+          <AnimatePresence>
+            {showQrOverlay && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 8 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="absolute left-0 right-0 bottom-0 z-50 p-4 rounded-2xl bg-gray-900/95 backdrop-blur-2xl border border-gray-700/80 shadow-2xl flex flex-col items-center text-center space-y-3"
+              >
+                <div className="w-full flex items-center justify-between pb-2 border-b border-gray-800">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-200">
+                    <QrCode className="w-4 h-4 text-blue-400" />
+                    <span>Scan Location QR Code</span>
+                  </div>
+                  <button
+                    onClick={() => setShowQrOverlay(false)}
+                    className="p-1 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                    aria-label="Close QR overlay"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="p-3 bg-white rounded-xl shadow-inner border border-gray-200 relative group/qr flex items-center justify-center">
+                  <QRCodeSVG
+                    value={mapLocationUrl}
+                    size={135}
+                    level="H"
+                    includeMargin={false}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md border-2 border-white">
+                      <MapPin className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-gray-400 leading-tight max-w-[220px]">
+                  Scan with mobile camera to open location directly in Google Maps or Apple Maps app.
+                </p>
+
+                <div className="w-full pt-1 flex items-center gap-2">
+                  <a
+                    href={mapLocationUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  >
+                    <span>Open Directly</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <button
+                    onClick={() => setShowQrOverlay(false)}
+                    className="py-2 px-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-medium transition-colors cursor-pointer"
+                  >
+                    Close
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
       <button
@@ -2160,10 +2317,11 @@ export default function Layout() {
       <LanguageProvider>
         <ThemeProvider>
           <HashRouter>
-            <VersionChecker />
-            <DynamicSEOMetadata />
-            <ScrollToTop />
-            <div className="min-h-screen flex flex-col font-sans text-gray-900 bg-gray-50 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300 pb-14 md:pb-0">
+            <NavTransitionProvider>
+              <VersionChecker />
+              <DynamicSEOMetadata />
+              <ScrollToTop />
+              <div className="min-h-screen flex flex-col font-sans text-gray-900 bg-gray-50 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300 pb-14 md:pb-0">
               <Header />
               <main className="flex-grow">
                 <React.Suspense fallback={<PageLoader />}>
@@ -2263,7 +2421,8 @@ export default function Layout() {
               <SearchModal />
               <CookieBanner />
             </div>
-          </HashRouter>
+          </NavTransitionProvider>
+        </HashRouter>
         </ThemeProvider>
       </LanguageProvider>
     </HelmetProvider>

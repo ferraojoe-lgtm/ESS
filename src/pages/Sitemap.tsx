@@ -136,7 +136,7 @@ export default function Sitemap() {
                       <Link
                         to={link.path}
                         onClick={() =>
-                          window.scrollTo({ top: 0, behavior: "smooth" })
+                          window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior })
                         }
                         className="group flex items-center gap-2 text-[14px] text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-0.5"
                       >
@@ -174,7 +174,7 @@ export default function Sitemap() {
           </div>
           <Link
             to="/"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior })}
             className="w-full md:w-auto text-center px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold transition-colors duration-200 shadow-md hover:shadow-lg shadow-blue-500/10 shrink-0"
           >
             Back to Home

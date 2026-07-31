@@ -43,6 +43,8 @@ import {
   Navigation,
   ExternalLink,
   QrCode,
+  UserPlus,
+  Download,
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import Home from "./pages/Home";
@@ -831,20 +833,26 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
                 {activeDropdown === "about" && (
                   <div className="absolute top-full left-0 mt-0 w-64 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 py-2 z-50 text-left">
                     {aboutDropdown.map((item) => (
-                      <Link
+                      <motion.div
                         key={item.name}
-                        to={item.path}
-                        onClick={(e) => {
-                          setActiveDropdown(null);
-                          if (item.path.startsWith("/#")) {
-                            e.preventDefault();
-                            handleNavClick(item.path);
-                          }
-                        }}
-                        className="block px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition"
+                        whileHover={{ scale: 1.03, y: -2 }}
+                        transition={{ type: "spring", stiffness: 350, damping: 22 }}
+                        className="px-2"
                       >
-                        {item.name}
-                      </Link>
+                        <Link
+                          to={item.path}
+                          onClick={(e) => {
+                            setActiveDropdown(null);
+                            if (item.path.startsWith("/#")) {
+                              e.preventDefault();
+                              handleNavClick(item.path, item.name);
+                            }
+                          }}
+                          className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-colors duration-200"
+                        >
+                          {item.name}
+                        </Link>
+                      </motion.div>
                     ))}
                   </div>
                 )}
@@ -1213,6 +1221,11 @@ function Footer() {
                 {t("footer", "ecoFriendly")}
               </span>
             </div>
+
+            {/* Map Section placed directly below Eco-Friendly & 100% Carbon Neutral Website */}
+            <div className="pt-2">
+              <FooterMapSection />
+            </div>
           </motion.div>
 
           {/* Col 2: Core Services */}
@@ -1485,12 +1498,192 @@ function Footer() {
   );
 }
 
+function FooterMapSection() {
+  const [showQrOverlay, setShowQrOverlay] = React.useState(false);
+  const [vCardSaved, setVCardSaved] = React.useState(false);
+  const [isMapHovered, setIsMapHovered] = React.useState(false);
+
+  const mapLocationUrl = "https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9";
+
+  const handleSaveVCard = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const vcardContent = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN:Expert Standard Solution (ESS)",
+      "N:Solution;Expert Standard;;;",
+      "ORG:Expert Standard Solution",
+      "TITLE:Facility Management & Security Services",
+      "TEL;TYPE=CELL,VOICE,PREF:+917386843005",
+      "EMAIL;TYPE=INTERNET,WORK:info@expertstandardsolution.com",
+      "URL:https://expertstandardsolution.com",
+      "ADR;TYPE=WORK:;;Pillar Number 143\\, Plot No 4-3-119/5\\, 1st Floor\\, Near Attapur;Hyderabad;Telangana;500048;India",
+      "LABEL;TYPE=WORK:Pillar Number 143, Plot No 4-3-119/5, 1st Floor, Near Attapur, Hyderabad, Telangana 500048",
+      "NOTE:Expert Standard Solution - Valet Parking, Housekeeping, Security, Deep Cleaning & Facility Services in Hyderabad.",
+      "END:VCARD"
+    ].join("\r\n");
+
+    const blob = new Blob([vcardContent], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "Expert_Standard_Solution_ESS.vcf");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setVCardSaved(true);
+    setTimeout(() => setVCardSaved(false), 2500);
+  };
+
+  return (
+    <div className="space-y-3 relative">
+      <div
+        className="w-full h-36 md:h-44 rounded-xl overflow-hidden border border-gray-800 bg-gray-950 relative group/map shadow-md"
+        onMouseEnter={() => setIsMapHovered(true)}
+        onMouseLeave={() => setIsMapHovered(false)}
+      >
+        <iframe
+          title="Expert Standard Solution Location Map"
+          src={`https://maps.google.com/maps?q=Expert%20Standard%20Solution,%20Pillar%20Number%20143,%20Attapur,%20Hyderabad,%20Telangana%20500048&t=&z=${isMapHovered ? 16 : 14}&ie=UTF8&iwloc=&output=embed`}
+          className={cn(
+            "w-full h-full border-0 grayscale invert opacity-75 contrast-125 brightness-90 hover:opacity-100 hover:grayscale-0 transition-all duration-700 transform origin-center",
+            isMapHovered ? "scale-105 opacity-100 grayscale-0" : "scale-100"
+          )}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+        {/* Quick Map Link Overlay */}
+        <a
+          href={mapLocationUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-gray-900/90 hover:bg-blue-600 text-white text-xs font-medium shadow-lg backdrop-blur-md transition-all duration-200 flex items-center gap-1.5 border border-gray-700/80 hover:border-blue-500 group-hover/map:scale-105"
+        >
+          <Navigation className="w-3.5 h-3.5 text-blue-400 group-hover/map:text-white" />
+          <span>Directions</span>
+        </a>
+      </div>
+
+      {/* Action Buttons: View in Maps & Save to Contacts */}
+      <div className="flex flex-col sm:flex-row items-stretch gap-2.5 w-full">
+        <button
+          onClick={() => setShowQrOverlay((prev) => !prev)}
+          type="button"
+          className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-md hover:shadow-blue-500/20 transition-all duration-200 border border-blue-400/30 active:scale-[0.99] group/gmap cursor-pointer"
+          id="footer-google-maps-btn"
+        >
+          <MapPin className="w-4 h-4 text-blue-200 group-hover/gmap:scale-110 transition-transform shrink-0" />
+          <span>View in Google Maps</span>
+          <QrCode className="w-3.5 h-3.5 text-blue-200 shrink-0 ml-auto group-hover/gmap:scale-110 transition-transform" />
+        </button>
+
+        <button
+          onClick={handleSaveVCard}
+          type="button"
+          className={cn(
+            "flex-1 py-2.5 px-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all duration-200 border active:scale-[0.99] cursor-pointer",
+            vCardSaved
+              ? "bg-emerald-600 border-emerald-500 text-white shadow-emerald-500/20"
+              : "bg-gray-800/90 hover:bg-gray-700/90 text-gray-200 hover:text-white border-gray-700/80 hover:border-blue-500/50"
+          )}
+          id="footer-save-contacts-btn"
+        >
+          {vCardSaved ? (
+            <>
+              <Check className="w-4 h-4 text-emerald-200 shrink-0 animate-bounce" />
+              <span>Contact Saved!</span>
+            </>
+          ) : (
+            <>
+              <UserPlus className="w-4 h-4 text-blue-400 shrink-0" />
+              <span>Save to Contacts</span>
+              <Download className="w-3.5 h-3.5 text-gray-400 shrink-0 ml-auto" />
+            </>
+          )}
+        </button>
+      </div>
+
+      {/* QR Code Scan Modal / Popover Overlay */}
+      <AnimatePresence>
+        {showQrOverlay && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute left-0 right-0 bottom-0 z-50 p-4 rounded-2xl bg-gray-900/95 backdrop-blur-2xl border border-gray-700/80 shadow-2xl flex flex-col items-center text-center space-y-3"
+          >
+            <div className="w-full flex items-center justify-between pb-2 border-b border-gray-800">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-200">
+                <QrCode className="w-4 h-4 text-blue-400" />
+                <span>Scan Location QR Code</span>
+              </div>
+              <button
+                onClick={() => setShowQrOverlay(false)}
+                className="p-1 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                aria-label="Close QR overlay"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-3 bg-white rounded-xl shadow-inner border border-gray-200 relative group/qr flex items-center justify-center">
+              <QRCodeSVG
+                value={mapLocationUrl}
+                size={135}
+                level="H"
+                includeMargin={false}
+              />
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md border-2 border-white">
+                  <MapPin className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-gray-400 leading-tight max-w-[220px]">
+              Scan with mobile camera to open location directly in Google Maps or Apple Maps app.
+            </p>
+
+            <div className="w-full pt-1 flex flex-wrap items-center gap-2">
+              <a
+                href={mapLocationUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex-1 py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+              >
+                <span>Open Map</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <button
+                onClick={handleSaveVCard}
+                className="py-2 px-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 hover:text-white text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer border border-gray-700"
+              >
+                <UserPlus className="w-3.5 h-3.5 text-blue-400" />
+                <span>Save .VCF</span>
+              </button>
+              <button
+                onClick={() => setShowQrOverlay(false)}
+                className="py-2 px-2.5 rounded-lg bg-gray-800/60 hover:bg-gray-700 text-gray-400 hover:text-gray-200 text-xs font-medium transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function CompanyAddress() {
   const [copied, setCopied] = React.useState(false);
   const [showCopyBtn, setShowCopyBtn] = React.useState(false);
-  const [showQrOverlay, setShowQrOverlay] = React.useState(false);
+
   const addressText = "Pillar Number 143, Plot No 4-3-119/5, 1st Floor, Near, Attapur, Hyderabad, Telangana 500048\nEmail: info@expertstandardsolution.com\nPhone: +91 73868 43005";
-  const mapLocationUrl = "https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9";
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -1534,103 +1727,6 @@ function CompanyAddress() {
           <a href="tel:+917386843005" className="hover:text-white transition-colors">
             +91 73868 43005
           </a>
-        </div>
-        <div className="pt-4 md:pt-6 border-t border-gray-800/40 space-y-3 relative" onClick={(e) => e.stopPropagation()}>
-          <div className="w-full h-32 md:h-40 rounded-xl overflow-hidden border border-gray-800 bg-gray-950 relative group/map">
-            <iframe
-              title="Expert Standard Solution Location Map"
-              src="https://maps.google.com/maps?q=Expert%20Standard%20Solution,%20Pillar%20Number%20143,%20Attapur,%20Hyderabad,%20Telangana%20500048&t=&z=16&ie=UTF8&iwloc=&output=embed"
-              className="w-full h-full border-0 grayscale invert opacity-70 contrast-125 brightness-90 hover:opacity-100 hover:grayscale-0 transition-all duration-500"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-            {/* Quick Map Link Overlay */}
-            <a
-              href={mapLocationUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-lg bg-gray-900/90 hover:bg-blue-600 text-white text-xs font-medium shadow-lg backdrop-blur-md transition-all duration-200 flex items-center gap-1.5 border border-gray-700/80 hover:border-blue-500 group-hover/map:scale-105"
-            >
-              <Navigation className="w-3.5 h-3.5 text-blue-400 group-hover/map:text-white" />
-              <span>Directions</span>
-            </a>
-          </div>
-
-          {/* Prominent Touch-Friendly View in Google Maps Button */}
-          <button
-            onClick={() => setShowQrOverlay((prev) => !prev)}
-            type="button"
-            className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-blue-500/20 transition-all duration-200 border border-blue-400/30 active:scale-[0.99] group/gmap cursor-pointer"
-            id="footer-google-maps-btn"
-          >
-            <MapPin className="w-4 h-4 text-blue-200 group-hover/gmap:scale-110 transition-transform shrink-0" />
-            <span>View in Google Maps</span>
-            <QrCode className="w-4 h-4 text-blue-200 shrink-0 ml-auto group-hover/gmap:scale-110 transition-transform" />
-          </button>
-
-          {/* QR Code Scan Modal / Popover Overlay */}
-          <AnimatePresence>
-            {showQrOverlay && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.92, y: 8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92, y: 8 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="absolute left-0 right-0 bottom-0 z-50 p-4 rounded-2xl bg-gray-900/95 backdrop-blur-2xl border border-gray-700/80 shadow-2xl flex flex-col items-center text-center space-y-3"
-              >
-                <div className="w-full flex items-center justify-between pb-2 border-b border-gray-800">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-200">
-                    <QrCode className="w-4 h-4 text-blue-400" />
-                    <span>Scan Location QR Code</span>
-                  </div>
-                  <button
-                    onClick={() => setShowQrOverlay(false)}
-                    className="p-1 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-white transition-colors cursor-pointer"
-                    aria-label="Close QR overlay"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-
-                <div className="p-3 bg-white rounded-xl shadow-inner border border-gray-200 relative group/qr flex items-center justify-center">
-                  <QRCodeSVG
-                    value={mapLocationUrl}
-                    size={135}
-                    level="H"
-                    includeMargin={false}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md border-2 border-white">
-                      <MapPin className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-[11px] text-gray-400 leading-tight max-w-[220px]">
-                  Scan with mobile camera to open location directly in Google Maps or Apple Maps app.
-                </p>
-
-                <div className="w-full pt-1 flex items-center gap-2">
-                  <a
-                    href={mapLocationUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex-1 py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-                  >
-                    <span>Open Directly</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <button
-                    onClick={() => setShowQrOverlay(false)}
-                    className="py-2 px-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-medium transition-colors cursor-pointer"
-                  >
-                    Close
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
       <button

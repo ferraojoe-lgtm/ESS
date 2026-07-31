@@ -41,16 +41,6 @@ function HeroSection() {
             <Sparkles className="w-3.5 h-3.5 animate-pulse text-yellow-500 dark:text-yellow-400 fill-current" /> {t('hero', 'badge')}
           </motion.div>
           
-          <motion.h1 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="font-bold text-gray-900 dark:text-white tracking-tight leading-[1.12] mb-3 max-w-4xl mx-auto drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)] dark:drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]"
-            style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '41.56px', fontWeight: 800 }}
-          >
-            {t('hero', 'title')}
-          </motion.h1>
-
           <motion.h2
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}

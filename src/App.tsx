@@ -1080,17 +1080,22 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
 
 function Footer() {
   const { t } = useLanguage();
+  const location = useLocation();
+
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-12 pb-28 md:pb-12">
+    <footer className="bg-gray-900 text-gray-300 pt-16 pb-28 md:pb-16 border-t border-gray-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+          
+          {/* Col 1: Brand & Overview */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-4 space-y-4"
           >
-            <div className="mb-4">
+            <div>
               <Link
                 to="/"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -1119,17 +1124,223 @@ function Footer() {
                 </motion.div>
               </Link>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+            
+            <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
               {t("footer", "description")}
             </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-medium">
+                <Leaf className="w-3.5 h-3.5 shrink-0" />
+                {t("footer", "ecoFriendly")}
+              </span>
+            </div>
           </motion.div>
+
+          {/* Col 2: Core Services */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-3 space-y-4"
           >
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2.5">
+              {t("footer", "services")}
+            </h3>
+            <ul className="space-y-2.5 text-sm text-gray-400">
+              <li>
+                <Link
+                  to="/valet-parking-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/valet-parking-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Car className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Valet Parking Management</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/housekeeping-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/housekeeping-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Sparkles className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Corporate Housekeeping</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/deep-cleaning-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/deep-cleaning-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Wrench className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Commercial Deep Cleaning</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/facade-cleaning-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/facade-cleaning-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Globe className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>High-Rise Facade Cleaning</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cctv-monitoring-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/cctv-monitoring-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Video className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>CCTV Remote Surveillance</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/access-control-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/access-control-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Lock className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Access Control Systems</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/manpower-supply-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/manpower-supply-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Users className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Corporate Manpower Supply</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/pest-control-services-hyderabad"
+                  onClick={() => {
+                    if (location.pathname === "/pest-control-services-hyderabad") {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="hover:text-white transition-colors flex items-center gap-2 group"
+                >
+                  <Bug className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span>Pest Control Solutions</span>
+                </Link>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Col 3: Quick Links & Company */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-2 space-y-4"
+          >
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2.5">
+              Company
+            </h3>
+            <ul className="space-y-2.5 text-sm text-gray-400">
+              <li>
+                <Link
+                  to="/"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/careers"
+                  className="hover:text-white transition-colors flex items-center gap-1 text-blue-400 font-medium"
+                >
+                  <span>{t("footer", "joinTeam")}</span>
+                  <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/privacy"
+                  className="hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/terms"
+                  className="hover:text-white transition-colors"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/sitemap"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="hover:text-white transition-colors"
+                >
+                  Sitemap
+                </Link>
+              </li>
+            </ul>
+
+            <div className="pt-3 border-t border-gray-800/80">
+              <Link
+                to="/admin"
+                className="text-gray-400 hover:text-white text-xs inline-flex items-center gap-1.5 transition-colors p-2 rounded-lg bg-gray-800/40 hover:bg-gray-800 border border-gray-800"
+              >
+                <Shield className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                <span>Admin Portal</span>
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Col 4: Contact & Office */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="lg:col-span-3 space-y-4"
+          >
+            <h3 className="text-white font-semibold text-sm uppercase tracking-wider border-b border-gray-800 pb-2.5">
               {t("footer", "contact")}
             </h3>
             <div className="space-y-3">
@@ -1144,150 +1355,15 @@ function Footer() {
                   rel="noreferrer"
                   className="text-xs text-blue-400 hover:text-blue-300 transition inline-flex items-center gap-1 font-medium"
                 >
-                  View on Google Maps <ChevronRight className="w-3 h-3" />
+                  Google Maps <ChevronRight className="w-3 h-3" />
                 </a>
               </div>
             </div>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              {t("footer", "services")}
-            </h3>
-            <ul className="space-y-3 text-sm text-gray-400">
-              <li>
-                <Link
-                  to="/access-control-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/access-control-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Lock className="w-4 h-4 text-blue-400 shrink-0" />
-                  Access Control
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/cctv-monitoring-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/cctv-monitoring-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Video className="w-4 h-4 text-blue-400 shrink-0" />
-                  CCTV Monitoring
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/manpower-supply-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/manpower-supply-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Users className="w-4 h-4 text-blue-400 shrink-0" />
-                  Corporate Hospitality
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/manpower-supply-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/manpower-supply-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Briefcase className="w-4 h-4 text-blue-400 shrink-0" />
-                  Manpower Supply
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/housekeeping-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/housekeeping-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4 text-blue-400 shrink-0" />
-                  Corporate Housekeeping
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/deep-cleaning-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/deep-cleaning-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Wrench className="w-4 h-4 text-blue-400 shrink-0" />
-                  Deep Cleaning
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/pest-control-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/pest-control-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Bug className="w-4 h-4 text-blue-400 shrink-0" />
-                  Pest Control
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/valet-parking-services-hyderabad"
-                  onClick={() => {
-                    if (location.pathname === "/valet-parking-services-hyderabad") {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }
-                  }}
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <Car className="w-4 h-4 text-blue-400 shrink-0" />
-                  Valet Service
-                </Link>
-              </li>
-            </ul>
-            <div className="mt-6 flex flex-col gap-2.5">
-              <Link
-                to="/careers"
-                className="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center gap-1 transition-colors"
-              >
-                {t("footer", "joinTeam")} <ChevronRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/admin"
-                className="text-gray-400 hover:text-white text-xs inline-flex items-center gap-1.5 transition-colors pt-1 border-t border-gray-800/60"
-              >
-                <Shield className="w-3.5 h-3.5 text-blue-500" /> Admin Login
-              </Link>
-            </div>
-          </motion.div>
+
         </div>
+
+        {/* Bottom copyright bar */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -1295,41 +1371,30 @@ function Footer() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500"
         >
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
-            <span className="inline-flex items-center gap-1.5 text-green-400 font-medium">
-              <Leaf className="w-4 h-4" /> {t("footer", "ecoFriendly")}
-            </span>
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-            <span>
-              &copy; {new Date().getFullYear()} Expert Standard Solution. All
-              rights reserved.
-            </span>
-            <div className="flex items-center gap-6 text-xs text-gray-400 flex-wrap justify-center">
-              <Link
-                to="/privacy"
-                className="hover:text-white transition-colors"
-              >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+            <div>
+              &copy; {new Date().getFullYear()} Expert Standard Solution. All rights reserved.
+            </div>
+            <div className="flex items-center gap-4 flex-wrap justify-center">
+              <Link to="/privacy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
+              <span className="text-gray-700">•</span>
               <Link to="/terms" className="hover:text-white transition-colors">
-                Terms & Conditions
+                Terms
               </Link>
-              <Link
-                to="/sitemap"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="hover:text-white transition-colors"
-              >
+              <span className="text-gray-700">•</span>
+              <Link to="/sitemap" className="hover:text-white transition-colors">
                 Sitemap
               </Link>
-              <span className="text-gray-700">|</span>
-              <span className="text-gray-500">
+              <span className="text-gray-700">•</span>
+              <span>
                 Designed by{" "}
                 <a
                   href="https://wa.me/917995506100"
                   target="_blank"
                   rel="nofollow noopener noreferrer"
-                  className="hover:text-white transition-colors font-medium"
+                  className="hover:text-white text-gray-300 transition-colors font-medium"
                 >
                   Joe Ferrao
                 </a>

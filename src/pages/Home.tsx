@@ -11,6 +11,7 @@ import { useLanguage } from '../lib/LanguageContext';
 import founderSignature from '../assets/images/regenerated_image_1782636904447.png';
 import haseebTeamPortrait from '../assets/images/regenerated_image_1782899971595.jpg';
 import InteractiveServicesShowcase from '../components/InteractiveServicesShowcase';
+import { AuroraTextEffect } from "@/components/lightswind/aurora-text-effect";
 
 function MobileOptimizedVideo({ src, poster, className }: { src: string; poster?: string; className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -101,9 +102,15 @@ function HeroSection() {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="font-sans text-xl sm:text-2xl md:text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-8 max-w-3xl mx-auto leading-snug tracking-normal drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)] dark:drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]"
+            className="font-sans text-xl sm:text-2xl md:text-3xl font-extrabold mb-8 max-w-3xl mx-auto leading-snug tracking-normal drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)] dark:drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]"
           >
-            {t('hero', 'subtitle')}
+            <AuroraTextEffect
+              speed={6}
+              colors={["#2563eb", "#1d4ed8", "#0284c7", "#06b6d4", "#3b82f6", "#4f46e5", "#2563eb"]}
+              className="text-xl sm:text-2xl md:text-3xl font-extrabold"
+            >
+              {t('hero', 'subtitle')}
+            </AuroraTextEffect>
           </motion.h2>
           
           <motion.div 

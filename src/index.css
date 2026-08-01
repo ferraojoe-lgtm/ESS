@@ -57,6 +57,7 @@ section,
 
   --animate-marquee: marquee 60s linear infinite;
   --animate-marquee2: marquee2 60s linear infinite;
+  --animate-aurora-text: aurora-text 8s ease infinite;
 
   @keyframes marquee {
     0% { transform: translateX(0%); }
@@ -66,5 +67,11 @@ section,
   @keyframes marquee2 {
     0% { transform: translateX(100%); }
     100% { transform: translateX(0%); }
+  }
+
+  @keyframes aurora-text {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }

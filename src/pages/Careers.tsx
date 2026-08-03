@@ -193,8 +193,8 @@ export default function Careers() {
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                   Prefer to email us directly? Send your resume and cover letter to our HR department.
                 </p>
-                <a href="mailto:careers@expertstandardsolutions.com" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
-                  careers@expertstandardsolutions.com
+                <a href="mailto:careers@expertstandardsolution.com" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                  careers@expertstandardsolution.com
                 </a>
               </div>
 

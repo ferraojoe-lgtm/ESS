@@ -55,6 +55,7 @@ const TermsConditions = React.lazy(() => import("./pages/TermsConditions"));
 const SeoServicePage = React.lazy(() => import("./pages/SeoServicePage"));
 const SeoDashboard = React.lazy(() => import("./pages/SeoDashboard"));
 const Sitemap = React.lazy(() => import("./pages/Sitemap"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 import { CompanyLogo } from "./components/CompanyLogo";
 import CookieBanner from "./components/CookieBanner";
 import { cn } from "./lib/utils";
@@ -610,7 +611,7 @@ function SearchModal() {
               </span>
               <span className="flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-blue-500 animate-pulse" />{" "}
-                Expert Standard Solutions
+                Expert Standard Solution
               </span>
             </div>
           </motion.div>
@@ -2507,6 +2508,7 @@ export default function Layout() {
                         <SeoServicePage slug="apartment-valet-services-hyderabad" />
                       }
                     />
+                    <Route path="*" element={<NotFound />} />
                   </Routes>
                 </React.Suspense>
               </main>

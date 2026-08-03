@@ -701,8 +701,8 @@ async function startServer() {
     // Mock Email to Client
     sendMockEmail(
       newRequest.email, 
-      "Quote Request Received - Expert Standard Solutions", 
-      `Hi ${newRequest.clientName},\n\nWe have received your quote request for ${newRequest.serviceType}. Our team will review and get back to you shortly.\n\nThank you,\nExpert Standard Solutions`
+      "Quote Request Received - Expert Standard Solution", 
+      `Hi ${newRequest.clientName},\n\nWe have received your quote request for ${newRequest.serviceType}. Our team will review and get back to you shortly.\n\nThank you,\nExpert Standard Solution`
     );
 
     // Mock Email to Admin
@@ -738,7 +738,7 @@ async function startServer() {
       sendMockEmail(
         updatedRequest.email,
         "Update on Your Service Request",
-        `Hi ${updatedRequest.clientName},\n\nThe status of your request (${updatedRequest.id}) has been updated to: ${status}.\n\nThank you,\nExpert Standard Solutions`
+        `Hi ${updatedRequest.clientName},\n\nThe status of your request (${updatedRequest.id}) has been updated to: ${status}.\n\nThank you,\nExpert Standard Solution`
       );
     }
     
@@ -747,7 +747,7 @@ async function startServer() {
        sendMockEmail(
         updatedRequest.email,
         "Invoice Generated for Your Service",
-        `Hi ${updatedRequest.clientName},\n\nAn invoice of $${billingAmount} has been generated for your request (${updatedRequest.id}). Please review your billing.\n\nThank you,\nExpert Standard Solutions`
+        `Hi ${updatedRequest.clientName},\n\nAn invoice of $${billingAmount} has been generated for your request (${updatedRequest.id}). Please review your billing.\n\nThank you,\nExpert Standard Solution`
       );     
     }
 
@@ -823,7 +823,7 @@ Please log in to the admin dashboard to manage this request.
 
     // Send email to the requested address
     await sendRealEmail(
-      "expertstandardsolutionsfoa@gmail.com",
+      "expertstandardsolutionfoa@gmail.com",
       `New Quote Request: ${clientName || "Client"} - ${serviceType || "Service"}`,
       emailBody,
       htmlBody

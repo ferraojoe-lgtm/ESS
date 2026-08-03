@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { ThreeDCardWrapper } from '@/components/lightswind/3d-hover-gallery';
 import { 
   Car, 
   Sparkles, 
@@ -125,65 +126,60 @@ export default function ServicesOverview() {
           {servicesList.map((service, idx) => {
             const IconComponent = service.icon;
             return (
-              <motion.div
-                key={service.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="group relative flex flex-col justify-between bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-900 rounded-2xl border border-white/80 dark:border-slate-800/80 p-6 sm:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 dark:hover:border-blue-400/40 transition-all duration-300 transform hover:-translate-y-1 h-full"
-              >
-                <div>
-                  {/* Icon & Badge Row */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                      <IconComponent className="w-6 h-6" />
+              <ThreeDCardWrapper key={service.slug} index={idx}>
+                <div className="group relative flex flex-col justify-between bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-900 rounded-2xl border border-white/80 dark:border-slate-800/80 p-6 sm:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(59,130,246,0.15)] hover:border-blue-500/40 dark:hover:border-blue-400/40 transition-all duration-300 h-full">
+                  <div>
+                    {/* Icon & Badge Row */}
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                        <IconComponent className="w-6 h-6" />
+                      </div>
+                      {service.badge && (
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-100/60 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/20 dark:border-blue-800/30">
+                          {service.badge}
+                        </span>
+                      )}
                     </div>
-                    {service.badge && (
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md bg-blue-100/60 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/20 dark:border-blue-800/30">
-                        {service.badge}
-                      </span>
+
+                    {/* Title & Tagline */}
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                      {service.title}
+                    </h3>
+                    <p className="text-xs font-bold text-gray-400 dark:text-gray-500 mb-3 uppercase tracking-wide">
+                      {service.tagline}
+                    </p>
+
+                    {/* Description */}
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                      {service.description}
+                    </p>
+
+                    {service.slug === "/valet-parking-services-hyderabad" && (
+                      <div className="mt-4 mb-4 pt-4 border-t border-gray-100 dark:border-gray-800/60">
+                        <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Specialized Valet Hubs:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <Link to="/hotel-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Hotel Valet</Link>
+                          <Link to="/corporate-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Corporate</Link>
+                          <Link to="/restaurant-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Restaurant</Link>
+                          <Link to="/event-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Events</Link>
+                          <Link to="/apartment-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Apartments</Link>
+                        </div>
+                      </div>
                     )}
                   </div>
 
-                  {/* Title & Tagline */}
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs font-bold text-gray-400 dark:text-gray-500 mb-3 uppercase tracking-wide">
-                    {service.tagline}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                    {service.description}
-                  </p>
-
-                  {service.slug === "/valet-parking-services-hyderabad" && (
-                    <div className="mt-4 mb-4 pt-4 border-t border-gray-100 dark:border-gray-800/60">
-                      <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Specialized Valet Hubs:</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        <Link to="/hotel-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Hotel Valet</Link>
-                        <Link to="/corporate-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Corporate</Link>
-                        <Link to="/restaurant-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Restaurant</Link>
-                        <Link to="/event-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Events</Link>
-                        <Link to="/apartment-valet-services-hyderabad" className="text-[11px] font-semibold bg-gray-50 hover:bg-blue-50 dark:bg-gray-800 dark:hover:bg-blue-950/40 px-2 py-1 rounded border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Apartments</Link>
-                      </div>
-                    </div>
-                  )}
+                  {/* Footer Link */}
+                  <div className="pt-4 border-t border-gray-100 dark:border-gray-800/60 flex items-center justify-between">
+                    <Link 
+                      to={service.slug}
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300"
+                    >
+                      Explore Service
+                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" />
+                    </Link>
+                  </div>
                 </div>
-
-                {/* Footer Link */}
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-800/60 flex items-center justify-between">
-                  <Link 
-                    to={service.slug}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300"
-                  >
-                    Explore Service
-                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" />
-                  </Link>
-                </div>
-              </motion.div>
+              </ThreeDCardWrapper>
             );
           })}
         </div>

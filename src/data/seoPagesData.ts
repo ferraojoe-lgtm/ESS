@@ -367,7 +367,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'cctv-monitoring-services-hyderabad': {
     slug: 'cctv-monitoring-services-hyderabad',
     title: 'Professional CCTV Monitoring & Surveillance Services in Hyderabad',
-    metaTitle: 'CCTV Monitoring Services in Hyderabad | Remote Surveillance - ESS',
+    metaTitle: 'CCTV Monitoring & Remote Surveillance Hyderabad | ESS',
     metaDescription: 'Book top remote CCTV monitoring & live surveillance services in Hyderabad. Expert Standard Solution provides 24/7 video analytics, threat detection, and smart guard services.',
     keywords: [
       'cctv monitoring services in hyderabad',
@@ -436,7 +436,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'access-control-services-hyderabad': {
     slug: 'access-control-services-hyderabad',
     title: 'Biometric & Smart Access Control Systems in Hyderabad',
-    metaTitle: 'Access Control Systems Hyderabad | Biometric & Visitor Management - ESS',
+    metaTitle: 'Access Control & Biometric Systems Hyderabad | ESS',
     metaDescription: 'Get state-of-the-art access control and biometric systems in Hyderabad. Expert Standard Solution integrates secure entry systems, turnstiles, and smart visitor apps.',
     keywords: [
       'access control systems in hyderabad',
@@ -505,7 +505,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'pest-control-services-hyderabad': {
     slug: 'pest-control-services-hyderabad',
     title: 'Professional Pest Control Services in Hyderabad',
-    metaTitle: 'Pest Control Services Hyderabad | Termite & Pest Eradication - ESS',
+    metaTitle: 'Pest Control & Termite Eradication Hyderabad | ESS',
     metaDescription: 'Get certified commercial & office pest control services in Hyderabad. Expert Standard Solution provides eco-friendly pest management, termite control, and clinical disinfection across HITEC City and Gachibowli.',
     keywords: [
       'pest control services in hyderabad',
@@ -575,7 +575,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'manpower-supply-services-hyderabad': {
     slug: 'manpower-supply-services-hyderabad',
     title: 'Professional Manpower Supply & Staffing in Hyderabad',
-    metaTitle: 'Corporate Manpower Supply Hyderabad | Office Boys & Front Office - ESS',
+    metaTitle: 'Corporate Manpower Supply & Staffing Hyderabad | ESS',
     metaDescription: 'Hire fully-verified corporate staff in Hyderabad. Expert Standard Solution supplies trained office boys, front office executives, receptionists, and professional facility managers.',
     keywords: [
       'manpower supply services in hyderabad',
@@ -645,7 +645,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'hotel-valet-services-hyderabad': {
     slug: 'hotel-valet-services-hyderabad',
     title: 'Luxury Hotel Valet Parking Services in Hyderabad',
-    metaTitle: 'Premium Hotel Valet Parking Services in Hyderabad | Luxury Hotel Valet - ESS',
+    metaTitle: 'Hotel Valet Parking Services in Hyderabad | ESS',
     metaDescription: 'Looking for professional hotel valet parking services in Hyderabad? Expert Standard Solution (ESS) provides five-star luxury hotel valet and driveway management services.',
     keywords: [
       'hotel valet parking services hyderabad',
@@ -716,7 +716,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'corporate-valet-services-hyderabad': {
     slug: 'corporate-valet-services-hyderabad',
     title: 'Elite Corporate Valet Parking Services in Hyderabad',
-    metaTitle: 'Corporate Valet Parking Services in Hyderabad | Office Parking Management - ESS',
+    metaTitle: 'Corporate Valet Parking Services Hyderabad | ESS',
     metaDescription: 'ESS offers premium corporate valet parking services in Hyderabad. Manage office commute congestion with our trained chauffeurs and professional key tracking.',
     keywords: [
       'corporate valet parking services hyderabad',
@@ -787,7 +787,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'restaurant-valet-services-hyderabad': {
     slug: 'restaurant-valet-services-hyderabad',
     title: 'Professional Restaurant Valet Parking Services in Hyderabad',
-    metaTitle: 'Restaurant Valet Parking Services in Hyderabad | Fine Dining Valet - ESS',
+    metaTitle: 'Restaurant Valet Parking Services Hyderabad | ESS',
     metaDescription: 'Expert restaurant valet parking services in Hyderabad. Ensure smooth guest arrivals, fast retrieval times, and elite customer hospitality for fine dining.',
     keywords: [
       'restaurant valet parking services hyderabad',
@@ -858,7 +858,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'event-valet-services-hyderabad': {
     slug: 'event-valet-services-hyderabad',
     title: 'Elite Event Valet Parking Services in Hyderabad',
-    metaTitle: 'Event & Wedding Valet Parking Services in Hyderabad | Gala Valet - ESS',
+    metaTitle: 'Event & Wedding Valet Parking Hyderabad | ESS',
     metaDescription: 'Professional wedding and event valet parking services in Hyderabad. Fully insured, uniformed drivers, and organized queue management for any size event.',
     keywords: [
       'event valet parking services hyderabad',
@@ -929,7 +929,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
   'apartment-valet-services-hyderabad': {
     slug: 'apartment-valet-services-hyderabad',
     title: 'Luxury Apartment Valet Parking Services in Hyderabad',
-    metaTitle: 'Residential & Apartment Valet Parking Services Hyderabad - ESS',
+    metaTitle: 'Apartment & Residential Valet Parking Hyderabad | ESS',
     metaDescription: 'Premium residential valet parking services in Hyderabad for luxury apartments and gated communities. Keep parking organized and secure with verified drivers.',
     keywords: [
       'apartment valet parking services hyderabad',

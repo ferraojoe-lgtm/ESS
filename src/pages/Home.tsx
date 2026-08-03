@@ -12,6 +12,7 @@ import founderSignature from '../assets/images/regenerated_image_1782636904447.p
 import haseebTeamPortrait from '../assets/images/regenerated_image_1782899971595.jpg';
 import InteractiveServicesShowcase from '../components/InteractiveServicesShowcase';
 import { AuroraTextEffect } from "@/components/lightswind/aurora-text-effect";
+import ThreeDHoverGallery from "@/components/lightswind/3d-hover-gallery";
 
 function MobileOptimizedVideo({ src, poster, className }: { src: string; poster?: string; className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -189,7 +190,7 @@ function AboutSection() {
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a 
-                  href="https://www.google.com/maps/place/Expert+Standard+Solutions/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811"
+                  href="https://www.google.com/maps/place/Expert+Standard+Solution/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 font-bold text-sm border border-gray-200 dark:border-gray-800 hover:border-blue-500 hover:dark:border-blue-500 hover:shadow-md transition duration-300 shadow-sm"
@@ -654,7 +655,7 @@ function QuoteRequestSection() {
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Top Rated in Hyderabad</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Rated 4.8/5 on JustDial and 4.9/5 on Google Reviews for our prompt and professional services.</p>
                 <a 
-                  href="https://www.google.com/maps/place/Expert+Standard+Solutions/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811" 
+                  href="https://www.google.com/maps/place/Expert+Standard+Solution/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-blue-600 dark:text-blue-400 font-semibold hover:underline inline-flex items-center gap-1.5 text-xs"
@@ -1234,45 +1235,7 @@ function TeamSection() {
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">The dedicated professionals working behind the scenes to deliver <strong className="font-extrabold text-blue-600 dark:text-blue-400">spotless spaces</strong> and <strong className="font-extrabold text-blue-600 dark:text-blue-400">seamless service</strong>.</p>
         </motion.div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {team.map((member, index) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow group flex flex-col"
-            >
-              {member.image && (
-                <div className="flex justify-center pt-8 bg-gray-50 dark:bg-gray-800">
-                  <div className="bg-gray-200 dark:bg-gray-700 overflow-hidden relative border-4 border-white shadow-md rounded-2xl" style={{ width: '140px', height: '180px' }}>
-                    <img 
-                      src={member.image}
-                      alt={member.name}
-                      width={140}
-                      height={180}
-                      loading="lazy"
-                      decoding="async"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                </div>
-              )}
-              <div className="p-6 text-center flex-grow">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{member.name}</h3>
-                <p 
-                  className={cn("text-blue-600 dark:text-blue-400 font-medium mb-4", index === 1 && "w-[256px] mx-auto")}
-                  style={index === 0 ? { marginLeft: '-10px' } : undefined}
-                >
-                  {member.role}
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-[15px] leading-relaxed">{member.bio}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <ThreeDHoverGallery items={team} />
       </div>
     </section>
   );
@@ -1422,7 +1385,7 @@ function TestimonialsSection() {
 
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a 
-                href="https://www.google.com/maps/place/Expert+Standard+Solutions/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811"
+                href="https://www.google.com/maps/place/Expert+Standard+Solution/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition duration-300 shadow-md shadow-blue-600/10 hover:-translate-y-0.5"
@@ -1433,7 +1396,7 @@ function TestimonialsSection() {
               </a>
 
               <a 
-                href="https://www.google.com/maps/place/Expert+Standard+Solutions/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811"
+                href="https://www.google.com/maps/place/Expert+Standard+Solution/@17.3702316,78.4292811,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b7add5cf97:0x5f72af4fca71e669!8m2!3d17.3702316!4d78.4292811"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-750 text-gray-300 font-semibold text-xs transition duration-300 border border-gray-750"

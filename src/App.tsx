@@ -1441,14 +1441,6 @@ function Footer() {
                 <p className="text-xs text-gray-500 font-mono">
                   <strong>GSTIN:</strong> 36AAIFE4118R1ZZ
                 </p>
-                <a
-                  href="https://maps.app.goo.gl/b6mHqbXBWE9DpEjc9"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs text-blue-400 hover:text-blue-300 transition inline-flex items-center gap-1 font-medium"
-                >
-                  Google Maps <ChevronRight className="w-3 h-3" />
-                </a>
               </div>
             </div>
           </motion.div>

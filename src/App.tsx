@@ -2339,6 +2339,23 @@ function DynamicSEOMetadata() {
       "Complete site directory for Expert Standard Solution. Browse all available corporate facilities and parking services.";
   }
 
+  const faqSchema = React.useMemo(() => {
+    if (!serviceConfig || !serviceConfig.faqs || serviceConfig.faqs.length === 0) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `https://expertstandardsolution.com/${serviceConfig.slug}#faq`,
+      "mainEntity": serviceConfig.faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer,
+        },
+      })),
+    };
+  }, [serviceConfig]);
+
   return (
     <Helmet>
       <title>{title}</title>
@@ -2373,6 +2390,13 @@ function DynamicSEOMetadata() {
         name="robots"
         content={path === "/admin" ? "noindex, nofollow" : "index, follow"}
       />
+
+      {/* Dynamic Service FAQ Schema for Search Engines */}
+      {faqSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
+      )}
     </Helmet>
   );
 }

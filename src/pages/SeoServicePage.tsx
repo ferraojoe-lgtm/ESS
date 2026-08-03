@@ -160,6 +160,24 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
     };
   }, [config]);
 
+  const faqSchema = React.useMemo(() => {
+    if (!config || !config.faqs || config.faqs.length === 0) return null;
+    const pageUrl = `https://expertstandardsolution.com/${config.slug}`;
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      "mainEntity": config.faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+  }, [config]);
+
   const otherPages = React.useMemo(() => {
     return Object.values(SEO_PAGES_DATA).filter(p => p.slug !== slug);
   }, [slug]);
@@ -179,10 +197,17 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
         <meta property="og:url" content={`https://expertstandardsolution.com/${config.slug}`} />
         <meta property="og:locale" content="en_IN" />
 
-        {/* JSON-LD Schema */}
+        {/* JSON-LD Schema Graph */}
         <script type="application/ld+json">
           {JSON.stringify(schemaGraph)}
         </script>
+
+        {/* Standalone FAQ Page Schema for Google Rich Snippets */}
+        {faqSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(faqSchema)}
+          </script>
+        )}
       </Helmet>
 
       <div className="min-h-screen pt-0 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">

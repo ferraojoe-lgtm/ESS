@@ -120,10 +120,30 @@ export default function SeoDashboard() {
     }, null, 2);
   }, [genService, genLocality]);
 
+  // Dynamic Service Page FAQ Schema
+  const serviceFaqSchema = useMemo(() => {
+    if (!pageConfig || !pageConfig.faqs || pageConfig.faqs.length === 0) return '';
+    const pageUrl = `https://expertstandardsolution.com/${pageConfig.slug}`;
+    return JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      "mainEntity": pageConfig.faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    }, null, 2);
+  }, [pageConfig]);
+
   // Auto audits of selected meta values
   const audits = useMemo(() => {
     const titleLength = customTitle.length;
     const descLength = customDesc.length;
+    const faqCount = pageConfig?.faqs?.length || 0;
     
     return [
       {
@@ -139,6 +159,13 @@ export default function SeoDashboard() {
         status: descLength >= 120 && descLength <= 160 ? 'pass' : descLength > 0 && descLength < 120 ? 'warning' : 'fail',
         message: `Currently ${descLength} characters. Recommended length is 120-160 characters to optimize snippet readability and CTR.`,
         value: `${descLength}/160 chars`
+      },
+      {
+        id: 'faq_schema',
+        title: 'Dynamic FAQ Schema Markup',
+        status: faqCount > 0 ? 'pass' : 'warning',
+        message: `Includes ${faqCount} structured Q&A JSON-LD schema entries dynamically injected for Google Rich Snippet search results.`,
+        value: `${faqCount} Q&As Active`
       },
       {
         id: 'robots_txt',
@@ -162,7 +189,7 @@ export default function SeoDashboard() {
         value: 'LocalBusiness & Service Graph'
       }
     ];
-  }, [customTitle, customDesc]);
+  }, [customTitle, customDesc, pageConfig]);
 
   return (
     <AdminAuth>
@@ -405,6 +432,22 @@ export default function SeoDashboard() {
                         {customDesc || "Please specify a description. Meta descriptions provide searchers with high-level summaries of what your page is about."}
                       </p>
 
+                      {/* Google FAQ Rich Snippet Preview */}
+                      {pageConfig?.faqs && pageConfig.faqs.length > 0 && (
+                        <div className="mt-3.5 pt-3.5 border-t border-gray-200/80 dark:border-gray-800/80 space-y-2">
+                          <div className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <HelpCircle className="w-3.5 h-3.5 text-blue-500" />
+                            <span>Google Rich Result FAQ Accordion ({pageConfig.faqs.length} Questions)</span>
+                          </div>
+                          {pageConfig.faqs.slice(0, 2).map((faq, idx) => (
+                            <div key={idx} className="bg-white dark:bg-gray-900/90 p-2.5 rounded-lg border border-gray-200/60 dark:border-gray-800 text-xs">
+                              <span className="font-semibold text-blue-800 dark:text-blue-400 block mb-0.5">Q: {faq.question}</span>
+                              <span className="text-gray-600 dark:text-gray-400 text-[11px] line-clamp-2">{faq.answer}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
                       {/* Google Sitelinks snippet (rich visual representation) */}
                       <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-gray-200/60 dark:border-gray-800/60 pl-2">
                         <div>
@@ -450,6 +493,18 @@ export default function SeoDashboard() {
                       <p className="text-[13px] text-gray-700 dark:text-gray-300 leading-relaxed max-w-md">
                         {customDesc || "Please specify a description snippet."}
                       </p>
+
+                      {/* Mobile Google FAQ Rich Snippet */}
+                      {pageConfig?.faqs && pageConfig.faqs.length > 0 && (
+                        <div className="mt-2.5 pt-2.5 border-t border-gray-200/80 dark:border-gray-800/80 space-y-1.5">
+                          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">People Also Ask (FAQ Schema)</span>
+                          {pageConfig.faqs.slice(0, 2).map((faq, idx) => (
+                            <div key={idx} className="bg-white dark:bg-gray-900 p-2 rounded border border-gray-200/60 dark:border-gray-800 text-[11px]">
+                              <span className="font-semibold text-blue-700 dark:text-blue-400 block">{faq.question}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -725,6 +780,24 @@ export default function SeoDashboard() {
                         {generatedSchema}
                       </pre>
                     </div>
+
+                    {serviceFaqSchema && (
+                      <div>
+                        <div className="flex justify-between items-center mb-1.5">
+                          <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Dynamic Service Page FAQ Schema (JSON-LD)</span>
+                          <button
+                            onClick={() => handleCopy(serviceFaqSchema, 'faqSchema')}
+                            className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer font-semibold"
+                          >
+                            {copiedText === 'faqSchema' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                            {copiedText === 'faqSchema' ? 'Copied!' : 'Copy FAQ Schema'}
+                          </button>
+                        </div>
+                        <pre className="bg-gray-50 dark:bg-gray-950 p-3.5 rounded-xl border border-gray-250 dark:border-gray-800 text-[11px] leading-relaxed max-h-48 overflow-y-auto select-all font-mono text-emerald-700 dark:text-emerald-400">
+                          {serviceFaqSchema}
+                        </pre>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

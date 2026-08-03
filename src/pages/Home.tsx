@@ -972,7 +972,7 @@ function FAQSection() {
     },
     {
       question: "What kind of cleaning materials and equipment do you use?",
-      answer: "We use premium-grade, eco-friendly, and ISO-certified cleaning chemicals (such as Taski/Diversey). Our modern equipment checklist includes industrial ride-on scrubbers, high-pressure washers, single-disc scrubbing machines, and specialized vacuum cleaners for absolute sanitization.",
+      answer: "We use premium-grade, eco-friendly certified cleaning chemicals (such as Taski/Diversey). Our modern equipment checklist includes industrial ride-on scrubbers, high-pressure washers, single-disc scrubbing machines, and specialized vacuum cleaners for absolute sanitization.",
       category: "cleaning"
     },
     {
@@ -992,7 +992,7 @@ function FAQSection() {
     },
     {
       question: "What statutory compliance and certification standards does ESS follow?",
-      answer: "ESS adheres strictly to standard statutory compliance, including PF, ESI, minimum wage regulations, and ISO 9001:2015 quality frameworks. All deployed personnel are fully insured and documented.",
+      answer: "ESS adheres strictly to standard statutory compliance, including PF, ESI, minimum wage regulations, and rigorous quality frameworks. All deployed personnel are fully insured and documented.",
       category: "staffing"
     },
     {

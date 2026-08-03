@@ -306,7 +306,7 @@ function injectSeoAndPreRender(html: string, urlPath: string, host: string): str
           "name": "What kind of cleaning materials and equipment do you use?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We use premium-grade, eco-friendly, and ISO-certified cleaning chemicals (such as Taski/Diversey). Our modern equipment checklist includes industrial ride-on scrubbers, high-pressure washers, single-disc scrubbing machines, and specialized vacuum cleaners for absolute sanitization."
+            "text": "We use premium-grade, eco-friendly certified cleaning chemicals (such as Taski/Diversey). Our modern equipment checklist includes industrial ride-on scrubbers, high-pressure washers, single-disc scrubbing machines, and specialized vacuum cleaners for absolute sanitization."
           }
         },
         {

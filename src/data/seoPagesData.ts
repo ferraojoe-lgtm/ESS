@@ -50,7 +50,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
     overviewHeading: 'Elevate Workplace Hygiene Across Hyderabad’s Premier IT & Business Hubs',
     overviewText: [
       'In today’s fast-paced corporate world, a clean and hygienic office is directly linked to employee wellness, productivity, and brand prestige. Expert Standard Solution (ESS) provides industry-leading corporate housekeeping services in Hyderabad, customized for IT tech parks, multinational corporate offices, financial institutions, and commercial complexes.',
-      'Our personnel undergo rigorous background verification, intensive soft-skills training, and mechanized cleaning certification. Utilizing hospital-grade disinfectants and advanced automated scrubbers, we maintain zero-tolerance sanitation standards that exceed international ISO workplace benchmarks.'
+      'Our personnel undergo rigorous background verification, intensive soft-skills training, and mechanized cleaning certification. Utilizing hospital-grade disinfectants and advanced automated scrubbers, we maintain zero-tolerance sanitation standards that exceed international workplace benchmarks.'
     ],
     keyBenefits: [
       {
@@ -514,7 +514,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
       'best pest eradication agency hyderabad',
       'eco-friendly pest management telangana'
     ],
-    heroBadge: 'ISO Certified Professional Pest Control in Hyderabad',
+    heroBadge: 'Professional Pest Control Services in Hyderabad',
     heroHeadline: 'Advanced & Eco-Friendly Pest Control Services',
     heroSubheadline: 'Eliminate termites, rodents, cockroaches, and bedbugs with non-toxic, odorless treatments tailored for corporate offices and commercial complexes.',
     serviceCategory: 'Pest Control',

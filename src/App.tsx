@@ -2268,7 +2268,7 @@ function DynamicSEOMetadata() {
   let ogTitle =
     "Premium Valet Parking & Corporate Housekeeping Services in Hyderabad | ESS";
   let ogDescription =
-    "Premium commercial cleaning, corporate facility management, and professional valet parking management services in Hyderabad. ISO certified delivery, tailored SLAs, and professional staff.";
+    "Premium commercial cleaning, corporate facility management, and professional valet parking management services in Hyderabad. High-standard delivery, tailored SLAs, and professional staff.";
 
   if (serviceConfig) {
     title = serviceConfig.metaTitle;

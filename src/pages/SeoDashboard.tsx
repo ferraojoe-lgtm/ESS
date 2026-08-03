@@ -698,7 +698,7 @@ export default function SeoDashboard() {
                       <div className="flex justify-between items-center mb-1.5">
                         <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Optimized Meta Description</span>
                         <button
-                          onClick={() => handleCopy(`Looking for premium ${genService.toLowerCase()} in ${genLocality}, Hyderabad? ESS offers vetted staff, ISO certified sanitation, and tailored SLAs. Contact us today!`, 'desc')}
+                          onClick={() => handleCopy(`Looking for premium ${genService.toLowerCase()} in ${genLocality}, Hyderabad? ESS offers vetted staff, professional sanitation, and tailored SLAs. Contact us today!`, 'desc')}
                           className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer font-semibold"
                         >
                           {copiedText === 'desc' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -706,7 +706,7 @@ export default function SeoDashboard() {
                         </button>
                       </div>
                       <div className="bg-gray-50 dark:bg-gray-950 px-3.5 py-2.5 rounded-xl border border-gray-250 dark:border-gray-800 text-xs leading-relaxed select-all font-mono text-gray-700 dark:text-gray-300">
-                        Looking for premium {genService.toLowerCase()} in {genLocality}, Hyderabad? ESS offers vetted staff, ISO certified sanitation, and tailored SLAs. Contact us today!
+                        Looking for premium {genService.toLowerCase()} in {genLocality}, Hyderabad? ESS offers vetted staff, professional sanitation, and tailored SLAs. Contact us today!
                       </div>
                     </div>
 

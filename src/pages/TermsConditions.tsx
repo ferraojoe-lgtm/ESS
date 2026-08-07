@@ -60,7 +60,7 @@ export default function TermsConditions() {
                 <FileText className="w-5 h-5 text-blue-500" /> 3. Statutory Compliance & Labor Laws
               </h2>
               <p>
-                Expert Standard Solution operates with 100% statutory compliance under applicable Indian state and central labor laws. All deployed personnel are directly managed by ESS, complete with Provident Fund (PF), Employee State Insurance (ESI), and minimum wage compliance. Clients are indemnified against any direct statutory labor liabilities pertaining to ESS personnel.
+                Expert Standard Solution operates with 100% statutory compliance under applicable Indian state and central labor laws. All deployed personnel are directly managed by ESS. Clients are indemnified against any direct statutory labor liabilities pertaining to ESS personnel.
               </p>
             </section>
 

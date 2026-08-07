@@ -120,7 +120,7 @@ export default function PrivacyPolicy() {
               </p>
               <div className="mt-4 text-sm space-y-2">
                 <p><strong>Designation:</strong> Data Protection & Grievance Redressal Officer</p>
-                <p><strong>Email:</strong> <a href="mailto:grievance@expertstandardsolution.com" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium text-blue-600 dark:text-blue-400">grievance@expertstandardsolution.com</a> / <a href="mailto:info@expertstandardsolution.com" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">info@expertstandardsolution.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:info@expertstandardsolution.com" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium text-blue-600 dark:text-blue-400">info@expertstandardsolution.com</a></p>
                 <p><strong>Contact Desk:</strong> <a href="tel:+917386843005" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+91 73868 43005</a></p>
                 <p><strong>Postal Address:</strong> Expert Standard Solution Office, Hyderabad, Telangana, India</p>
               </div>

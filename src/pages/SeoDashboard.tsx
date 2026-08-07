@@ -6,8 +6,19 @@ import AdminAuth from '../components/AdminAuth';
 import {
   Search, Sparkles, CheckCircle2, AlertCircle, ShieldCheck, FileText, Download,
   Edit, RefreshCw, Eye, Smartphone, Monitor, Globe, Star, ArrowUpRight, Copy,
-  Plus, ChevronDown, Check, Info, HelpCircle, ArrowRight, Award, Flame, Zap
+  Plus, ChevronDown, Check, Info, HelpCircle, ArrowRight, Award, Flame, Zap,
+  TrendingUp, BarChart2, Layers
 } from 'lucide-react';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
 import { SEO_PAGES_DATA } from '../data/seoPagesData';
 
 // Traffic and Keyword Database for Hyderabad Facility Services
@@ -48,9 +59,125 @@ const SEO_KEYWORDS: Record<string, KeywordConfig[]> = {
   ]
 };
 
+// Monthly Search Impression Growth Data for Top 5 Service Pages
+const MONTHLY_SEARCH_IMPRESSIONS_DATA = [
+  {
+    month: 'Mar 2026',
+    'Corporate Housekeeping': 12400,
+    'Valet Parking': 9800,
+    'Commercial Deep Cleaning': 8200,
+    'Facade Cleaning': 5100,
+    'CCTV Monitoring': 4300,
+  },
+  {
+    month: 'Apr 2026',
+    'Corporate Housekeeping': 14800,
+    'Valet Parking': 11400,
+    'Commercial Deep Cleaning': 9600,
+    'Facade Cleaning': 6300,
+    'CCTV Monitoring': 5400,
+  },
+  {
+    month: 'May 2026',
+    'Corporate Housekeeping': 17600,
+    'Valet Parking': 13600,
+    'Commercial Deep Cleaning': 11400,
+    'Facade Cleaning': 7800,
+    'CCTV Monitoring': 6700,
+  },
+  {
+    month: 'Jun 2026',
+    'Corporate Housekeeping': 20900,
+    'Valet Parking': 16100,
+    'Commercial Deep Cleaning': 13800,
+    'Facade Cleaning': 9200,
+    'CCTV Monitoring': 8100,
+  },
+  {
+    month: 'Jul 2026',
+    'Corporate Housekeeping': 24300,
+    'Valet Parking': 19200,
+    'Commercial Deep Cleaning': 16400,
+    'Facade Cleaning': 11100,
+    'CCTV Monitoring': 9600,
+  },
+  {
+    month: 'Aug 2026',
+    'Corporate Housekeeping': 28600,
+    'Valet Parking': 22800,
+    'Commercial Deep Cleaning': 19500,
+    'Facade Cleaning': 13200,
+    'CCTV Monitoring': 11400,
+  },
+];
+
+interface ServiceLineConfig {
+  key: string;
+  label: string;
+  color: string;
+  badge: string;
+  slug: string;
+  growth: string;
+  latestImpressions: string;
+}
+
+const TOP_5_SERVICE_LINES: ServiceLineConfig[] = [
+  { key: 'Corporate Housekeeping', label: 'Corporate Housekeeping', color: '#3B82F6', badge: 'Housekeeping', slug: 'housekeeping-services-hyderabad', growth: '+130%', latestImpressions: '28.6K' },
+  { key: 'Valet Parking', label: 'Valet Parking', color: '#10B981', badge: 'Valet Parking', slug: 'valet-parking-services-hyderabad', growth: '+132%', latestImpressions: '22.8K' },
+  { key: 'Commercial Deep Cleaning', label: 'Commercial Deep Cleaning', color: '#8B5CF6', badge: 'Deep Cleaning', slug: 'deep-cleaning-services-hyderabad', growth: '+137%', latestImpressions: '19.5K' },
+  { key: 'Facade Cleaning', label: 'High-Rise Facade Cleaning', color: '#F59E0B', badge: 'Facade Cleaning', slug: 'facade-cleaning-services-hyderabad', growth: '+158%', latestImpressions: '13.2K' },
+  { key: 'CCTV Monitoring', label: 'CCTV Surveillance & Monitoring', color: '#EC4899', badge: 'CCTV Monitoring', slug: 'cctv-monitoring-services-hyderabad', growth: '+165%', latestImpressions: '11.4K' },
+];
+
+// Custom Recharts Tooltip Component
+const CustomImpressionTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    const total = payload.reduce((acc: number, curr: any) => acc + (curr.value || 0), 0);
+    return (
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-3.5 shadow-xl text-xs min-w-[220px]">
+        <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-100 dark:border-gray-800">
+          <span className="font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+            <TrendingUp className="w-3.5 h-3.5 text-blue-500" />
+            {label}
+          </span>
+          <span className="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded-md">
+            Total: {(total / 1000).toFixed(1)}K
+          </span>
+        </div>
+        <div className="space-y-1.5">
+          {payload.map((entry: any, index: number) => (
+            <div key={`item-${index}`} className="flex items-center justify-between gap-3">
+              <span className="flex items-center gap-1.5 font-medium text-gray-600 dark:text-gray-300">
+                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: entry.color }} />
+                <span className="truncate max-w-[130px]">{entry.name}</span>
+              </span>
+              <span className="font-mono font-bold text-gray-900 dark:text-white">
+                {entry.value.toLocaleString()}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export default function SeoDashboard() {
   const [selectedSlug, setSelectedSlug] = useState<string>('housekeeping-services-hyderabad');
   const [deviceView, setDeviceView] = useState<'desktop' | 'mobile'>('desktop');
+  const [hiddenLines, setHiddenLines] = useState<Record<string, boolean>>({});
+
+  const toggleLine = (key: string) => {
+    setHiddenLines(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  const showAllLines = () => {
+    setHiddenLines({});
+  };
   
   // Customizable meta states for SERP simulator
   const [customTitle, setCustomTitle] = useState('');
@@ -267,6 +394,144 @@ export default function SeoDashboard() {
                 <span className="text-xs text-green-500 font-semibold flex items-center gap-0.5 mt-0.5">
                   Grade A (Core Vitals)
                 </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Monthly Search Impression Growth Chart (Recharts) */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200/80 dark:border-gray-800 shadow-md shadow-gray-100/10 dark:shadow-none mb-10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-gray-100 dark:border-gray-800">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <h2 className="text-xl font-extrabold text-gray-900 dark:text-white">
+                    Monthly Search Impression Growth
+                  </h2>
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50">
+                    Top 5 Service Pages
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                  Track organic Google search impressions trajectory (March – August 2026) across Hyderabad service routes.
+                </p>
+              </div>
+
+              {/* Interactive Service Toggle Badges */}
+              <div className="flex flex-wrap items-center gap-2">
+                {Object.keys(hiddenLines).some((k) => hiddenLines[k]) && (
+                  <button
+                    onClick={showAllLines}
+                    className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline mr-1 cursor-pointer"
+                  >
+                    Reset View
+                  </button>
+                )}
+                {TOP_5_SERVICE_LINES.map((service) => {
+                  const isHidden = hiddenLines[service.key];
+                  return (
+                    <button
+                      key={service.key}
+                      onClick={() => toggleLine(service.key)}
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition cursor-pointer border ${
+                        isHidden
+                          ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 border-gray-200 dark:border-gray-700 line-through opacity-60'
+                          : 'bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-800 hover:border-blue-500/50'
+                      }`}
+                    >
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{ backgroundColor: isHidden ? '#9CA3AF' : service.color }}
+                      />
+                      <span>{service.badge}</span>
+                      <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 ml-0.5">
+                        {service.growth}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Quick Stats Summary Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6 p-4 bg-gray-50 dark:bg-gray-950/60 rounded-xl border border-gray-100 dark:border-gray-850">
+              {TOP_5_SERVICE_LINES.map((service) => (
+                <div key={service.key} className="space-y-0.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: service.color }} />
+                    <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400 truncate">
+                      {service.badge}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-base font-black text-gray-900 dark:text-white">
+                      {service.latestImpressions}
+                    </span>
+                    <span className="text-[10px] font-bold text-green-500">
+                      {service.growth}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Recharts Responsive Line Chart */}
+            <div className="h-[320px] sm:h-[360px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={MONTHLY_SEARCH_IMPRESSIONS_DATA}
+                  margin={{ top: 10, right: 15, left: -15, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(156, 163, 175, 0.15)" />
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    axisLine={{ stroke: 'rgba(156, 163, 175, 0.25)' }}
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(val) => `${(val / 1000).toFixed(0)}k`}
+                    tick={{ fontSize: 12, fill: '#6B7280' }}
+                  />
+                  <Tooltip content={<CustomImpressionTooltip />} />
+                  {TOP_5_SERVICE_LINES.map((service) => (
+                    <Line
+                      key={service.key}
+                      type="monotone"
+                      dataKey={service.key}
+                      name={service.label}
+                      stroke={service.color}
+                      strokeWidth={3}
+                      dot={{ r: 4, strokeWidth: 2, fill: '#ffffff' }}
+                      activeDot={{ r: 7, strokeWidth: 2 }}
+                      hide={hiddenLines[service.key]}
+                    />
+                  ))}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Bottom Direct Route Quick Links */}
+            <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
+              <span className="font-semibold flex items-center gap-1">
+                <BarChart2 className="w-3.5 h-3.5 text-blue-500" />
+                Click badges above to toggle lines or select page to inspect SERP preview:
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                {TOP_5_SERVICE_LINES.map((service) => (
+                  <button
+                    key={service.slug}
+                    onClick={() => setSelectedSlug(service.slug)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer border ${
+                      selectedSlug === service.slug
+                        ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-blue-400'
+                    }`}
+                  >
+                    {service.badge}
+                  </button>
+                ))}
               </div>
             </div>
           </div>

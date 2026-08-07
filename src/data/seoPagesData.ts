@@ -100,7 +100,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
       },
       {
         question: 'Are your housekeeping staff background-verified and compliant with labor laws?',
-        answer: 'Yes, absolutely. 100% of our staff undergo comprehensive police verification and medical checks. ESS adheres strictly to statutory labor compliance, covering PF, ESI, gratuity, and minimum wages under Telangana state laws.'
+        answer: 'Yes, absolutely. 100% of our staff undergo comprehensive police verification and medical checks. ESS adheres strictly to statutory labor compliance under Telangana state laws.'
       },
       {
         question: 'Do you provide cleaning chemicals and equipment, or does the client supply them?',
@@ -606,7 +606,7 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
       },
       {
         title: 'Full Compliance & Payroll',
-        description: 'We handle all PF, ESIC, insurance, and statutory compliance, allowing you to focus on core growth.',
+        description: 'We handle all insurance and statutory compliance, allowing you to focus on core growth.',
         iconName: 'CheckCircle2'
       }
     ],
@@ -633,8 +633,8 @@ export const SEO_PAGES_DATA: Record<string, SeoPageConfig> = {
         answer: 'We maintain an active bench of trained, pre-verified standby professionals. In the event of a scheduled or unscheduled leave, we immediately deploy a qualified replacement at no extra cost.'
       },
       {
-        question: 'Are all compliance rules like PF and ESIC handled by ESS?',
-        answer: 'Absolutely. Expert Standard Solution takes 100% legal responsibility for recruitment, salary disbursement, PF, ESIC, professional tax, and comprehensive medical/accidental insurance.'
+        question: 'Is all statutory compliance handled by ESS?',
+        answer: 'Absolutely. Expert Standard Solution takes 100% legal responsibility for recruitment, salary disbursement, statutory compliance, professional tax, and comprehensive medical/accidental insurance.'
       },
       {
         question: 'Can we hire part-time or temporary front office executives?',

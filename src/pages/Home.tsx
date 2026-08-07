@@ -992,7 +992,7 @@ function FAQSection() {
     },
     {
       question: "What statutory compliance and certification standards does ESS follow?",
-      answer: "ESS adheres strictly to standard statutory compliance, including PF, ESI, minimum wage regulations, and rigorous quality frameworks. All deployed personnel are fully insured and documented.",
+      answer: "ESS adheres strictly to standard statutory compliance and rigorous quality frameworks. All deployed personnel are fully insured and documented.",
       category: "staffing"
     },
     {

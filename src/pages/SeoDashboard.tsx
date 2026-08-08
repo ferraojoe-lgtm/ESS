@@ -122,6 +122,7 @@ interface ServiceLineConfig {
 }
 
 const TOP_5_SERVICE_LINES: ServiceLineConfig[] = [
+  { key: 'Premier Valet Management', label: 'Premier Valet Management', color: '#059669', badge: 'Premier Valet', slug: 'premier-valet-parking-management', growth: '+185%', latestImpressions: '31.2K' },
   { key: 'Corporate Housekeeping', label: 'Corporate Housekeeping', color: '#3B82F6', badge: 'Housekeeping', slug: 'housekeeping-services-hyderabad', growth: '+130%', latestImpressions: '28.6K' },
   { key: 'Valet Parking', label: 'Valet Parking', color: '#10B981', badge: 'Valet Parking', slug: 'valet-parking-services-hyderabad', growth: '+132%', latestImpressions: '22.8K' },
   { key: 'Commercial Deep Cleaning', label: 'Commercial Deep Cleaning', color: '#8B5CF6', badge: 'Deep Cleaning', slug: 'deep-cleaning-services-hyderabad', growth: '+137%', latestImpressions: '19.5K' },

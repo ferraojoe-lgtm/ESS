@@ -43,6 +43,7 @@ export default function Sitemap() {
       icon: Car,
       description: "Seamless guest arrivals and professional driveway management.",
       links: [
+        { name: "Premier Valet Parking Management", path: "/premier-valet-parking-management" },
         { name: "Valet Parking Services (General)", path: "/valet-parking-services-hyderabad" },
         { name: "Five-Star Hotel Valet Services", path: "/hotel-valet-services-hyderabad" },
         { name: "Corporate Office Valet Services", path: "/corporate-valet-services-hyderabad" },

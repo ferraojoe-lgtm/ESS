@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { SeoPageConfig, SEO_PAGES_DATA } from '../data/seoPagesData';
 import { cn } from '../lib/utils';
+import ValetLandingPageFeatures from '../components/ValetLandingPageFeatures';
 
 interface SeoServicePageProps {
   slug: string;
@@ -431,6 +432,13 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
             </div>
           </div>
         </section>
+
+        {/* Dedicated Valet Interactive Features & Calculator for Valet Pages */}
+        {slug.includes('valet') && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <ValetLandingPageFeatures />
+          </section>
+        )}
 
         {/* Service Areas in Hyderabad */}
         <section className="py-16 bg-gray-50 dark:bg-gray-900/60 border-y border-gray-100 dark:border-gray-800">

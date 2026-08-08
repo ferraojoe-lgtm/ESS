@@ -33,13 +33,13 @@ interface ServiceCardData {
 
 const servicesData: ServiceCardData[] = [
   {
-    title: "Premium Valet Parking",
-    tagline: "Prestigious Guest Parking Solutions",
-    description: "Uniformed chauffeurs, key-vault safety, and efficient queue management for corporate sites, luxury hotels, and weddings.",
-    slug: "/valet-parking-services-hyderabad",
+    title: "Premier Valet Parking Management",
+    tagline: "Prestigious Executive Valet Solutions",
+    description: "Uniformed luxury chauffeurs, secure key-vault protection, rapid vehicle retrieval, and 0.001% claim ratio for tech parks, 5-star hotels & events.",
+    slug: "/premier-valet-parking-management",
     icon: Car,
     image: valetParkingImg,
-    badge: "ESS Elite Valet",
+    badge: "Premier Valet",
     gradient: "from-slate-900 via-indigo-950 to-indigo-900",
     glowColor: "rgba(99, 102, 241, 0.4)"
   },

@@ -656,8 +656,8 @@ function Navbar({ isScrolled }: { isScrolled?: boolean }) {
   ];
 
   const commercialDropdown = [
+    { name: "Premier Valet Parking Management", path: "/premier-valet-parking-management" },
     { name: "Corporate Housekeeping", path: "/housekeeping-services-hyderabad" },
-    { name: "Valet Parking Services", path: "/valet-parking-services-hyderabad" },
     { name: "Mechanized Deep Cleaning", path: "/deep-cleaning-services-hyderabad" },
     { name: "Facade Cleaning", path: "/facade-cleaning-services-hyderabad" },
     { name: "CCTV Remote Monitoring", path: "/cctv-monitoring-services-hyderabad" },
@@ -1243,16 +1243,16 @@ function Footer() {
             <ul className="space-y-2.5 text-sm text-gray-400">
               <li>
                 <Link
-                  to="/valet-parking-services-hyderabad"
+                  to="/premier-valet-parking-management"
                   onClick={() => {
-                    if (location.pathname === "/valet-parking-services-hyderabad") {
+                    if (location.pathname === "/premier-valet-parking-management") {
                       triggerTransition(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior }));
                     }
                   }}
                   className="hover:text-white transition-colors flex items-center gap-2 group"
                 >
                   <Car className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>Valet Parking Management</span>
+                  <span>Premier Valet Parking Management</span>
                 </Link>
                 <div className="pl-6 pt-1 pb-1 space-y-1.5 text-xs text-gray-400">
                   <Link to="/hotel-valet-services-hyderabad" className="block hover:text-blue-400 transition-colors">
@@ -2473,6 +2473,18 @@ export default function Layout() {
                       path="/deep-cleaning-services-hyderabad"
                       element={
                         <SeoServicePage slug="deep-cleaning-services-hyderabad" />
+                      }
+                    />
+                    <Route
+                      path="/premier-valet-parking-management"
+                      element={
+                        <SeoServicePage slug="premier-valet-parking-management" />
+                      }
+                    />
+                    <Route
+                      path="/premier-valet-parking-management-hyderabad"
+                      element={
+                        <SeoServicePage slug="premier-valet-parking-management-hyderabad" />
                       }
                     />
                     <Route

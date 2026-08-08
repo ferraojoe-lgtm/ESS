@@ -124,6 +124,31 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
           "@type": "BreadcrumbList",
           "@id": `${pageUrl}#breadcrumb`,
           "itemListElement": [
+            'hotel-valet-services-hyderabad',
+            'corporate-valet-services-hyderabad',
+            'restaurant-valet-services-hyderabad',
+            'event-valet-services-hyderabad',
+            'apartment-valet-services-hyderabad'
+          ].includes(config.slug) ? [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://expertstandardsolution.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Valet Parking Services",
+              "item": "https://expertstandardsolution.com/valet-parking-services-hyderabad"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": config.serviceCategory,
+              "item": pageUrl
+            }
+          ] : [
             {
               "@type": "ListItem",
               "position": 1,
@@ -218,8 +243,23 @@ export default function SeoServicePage({ slug }: SeoServicePageProps) {
             <div className="flex items-center gap-2 overflow-hidden">
               <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">Home</Link>
               <ChevronRight className="w-3.5 h-3.5 flex-shrink-0" />
-              <Link to="/#services-overview" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">Services</Link>
-              <ChevronRight className="w-3.5 h-3.5 flex-shrink-0" />
+              {[
+                'hotel-valet-services-hyderabad',
+                'corporate-valet-services-hyderabad',
+                'restaurant-valet-services-hyderabad',
+                'event-valet-services-hyderabad',
+                'apartment-valet-services-hyderabad'
+              ].includes(config.slug) ? (
+                <>
+                  <Link to="/valet-parking-services-hyderabad" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">Valet Parking</Link>
+                  <ChevronRight className="w-3.5 h-3.5 flex-shrink-0" />
+                </>
+              ) : (
+                <>
+                  <Link to="/#services-overview" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex-shrink-0">Services</Link>
+                  <ChevronRight className="w-3.5 h-3.5 flex-shrink-0" />
+                </>
+              )}
               <span className="text-gray-900 dark:text-gray-200 font-medium truncate">{config.serviceCategory}</span>
             </div>
             <Link 

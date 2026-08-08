@@ -1254,6 +1254,23 @@ function Footer() {
                   <Car className="w-4 h-4 text-blue-400 shrink-0 group-hover:scale-110 transition-transform" />
                   <span>Valet Parking Management</span>
                 </Link>
+                <div className="pl-6 pt-1 pb-1 space-y-1.5 text-xs text-gray-400">
+                  <Link to="/hotel-valet-services-hyderabad" className="block hover:text-blue-400 transition-colors">
+                    • Hotel Valet Services
+                  </Link>
+                  <Link to="/corporate-valet-services-hyderabad" className="block hover:text-blue-400 transition-colors">
+                    • Corporate Valet Services
+                  </Link>
+                  <Link to="/restaurant-valet-services-hyderabad" className="block hover:text-blue-400 transition-colors">
+                    • Restaurant Valet Services
+                  </Link>
+                  <Link to="/event-valet-services-hyderabad" className="block hover:text-blue-400 transition-colors">
+                    • Event & Wedding Valet
+                  </Link>
+                  <Link to="/apartment-valet-services-hyderabad" className="block hover:text-blue-400 transition-colors">
+                    • Apartment & Residential Valet
+                  </Link>
+                </div>
               </li>
               <li>
                 <Link

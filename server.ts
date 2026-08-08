@@ -105,8 +105,8 @@ function injectSeoAndPreRender(html: string, urlPath: string, host: string): str
     cleanPath = cleanPath.slice(0, -1);
   }
 
-  // Dynamic Base URL matching the active domain (expertstandardsolution.com, etc)
-  const baseUrl = `https://${host}`;
+  // Primary Canonical Domain (ensures 100% consistency across GSC & crawlers)
+  const baseUrl = "https://expertstandardsolution.com";
 
   // Default values optimized for premium valet & facility management services
   let title = "Premium Valet & Facility Management Hyderabad | ESS";
@@ -434,23 +434,49 @@ function injectSeoAndPreRender(html: string, urlPath: string, host: string): str
     schemaList.push(faqSchema);
 
     // Breadcrumb Schema
+    const isValetSubPage = [
+      'hotel-valet-services-hyderabad',
+      'corporate-valet-services-hyderabad',
+      'restaurant-valet-services-hyderabad',
+      'event-valet-services-hyderabad',
+      'apartment-valet-services-hyderabad'
+    ].includes(config.slug);
+
+    const breadcrumbList = [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": baseUrl
+      }
+    ];
+
+    if (isValetSubPage) {
+      breadcrumbList.push({
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Valet Parking Services",
+        "item": `${baseUrl}/valet-parking-services-hyderabad`
+      });
+      breadcrumbList.push({
+        "@type": "ListItem",
+        "position": 3,
+        "name": config.serviceCategory,
+        "item": `${baseUrl}${cleanPath}`
+      });
+    } else {
+      breadcrumbList.push({
+        "@type": "ListItem",
+        "position": 2,
+        "name": config.serviceCategory,
+        "item": `${baseUrl}${cleanPath}`
+      });
+    }
+
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": baseUrl
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": config.serviceCategory,
-          "item": `${baseUrl}${cleanPath}`
-        }
-      ]
+      "itemListElement": breadcrumbList
     };
     schemaList.push(breadcrumbSchema);
 
@@ -861,27 +887,48 @@ This email serves as an archival copy of the deleted record.`;
     res.json({ success: true, message: "Deletion report sent successfully." });
   });
 
-  // Dynamic robots.txt endpoint
+  // 301 Permanent Redirect Middleware for Canonical Domain Normalization (www -> non-www, trailing slashes)
+  app.use((req, res, next) => {
+    // Skip API routes and assets with file extensions
+    if (req.path.startsWith('/api/') || /\.(js|css|png|jpg|jpeg|gif|svg|ico|json|txt|woff|woff2|ttf|eot|xml|map|webmanifest)$/i.test(req.path)) {
+      return next();
+    }
+
+    const host = (req.get('host') || '').toLowerCase();
+
+    // 301 Redirect www.expertstandardsolution.com to expertstandardsolution.com
+    if (host.startsWith('www.expertstandardsolution.com')) {
+      const cleanPath = req.path.length > 1 && req.path.endsWith('/') ? req.path.slice(0, -1) : req.path;
+      const query = req.url.includes('?') ? req.url.substring(req.url.indexOf('?')) : '';
+      return res.redirect(301, `https://expertstandardsolution.com${cleanPath}${query}`);
+    }
+
+    // 301 Redirect trailing slash (e.g. /hotel-valet-services-hyderabad/) to non-trailing slash
+    if (req.path.length > 1 && req.path.endsWith('/')) {
+      const cleanPath = req.path.slice(0, -1);
+      const query = req.url.includes('?') ? req.url.substring(req.url.indexOf('?')) : '';
+      return res.redirect(301, `https://expertstandardsolution.com${cleanPath}${query}`);
+    }
+
+    next();
+  });
+
+  // Canonical robots.txt endpoint
   app.get("/robots.txt", (req, res) => {
-    const host = req.get('host') || 'expertstandardsolution.com';
     res.type("text/plain");
     res.send(`User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://${host}/sitemap.xml`);
+Sitemap: https://expertstandardsolution.com/sitemap.xml`);
   });
 
-  // Dynamic sitemap.xml endpoint
+  // Canonical sitemap.xml endpoint
   app.get("/sitemap.xml", async (req, res) => {
-    const host = req.get('host') || 'expertstandardsolution.com';
     try {
       const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
-      let sitemap = await fs.promises.readFile(sitemapPath, "utf-8");
-      // Dynamically replace hardcoded domains with current host
-      sitemap = sitemap.replace(/https:\/\/expertstandardsolution\.com/g, `https://${host}`);
-      sitemap = sitemap.replace(/https:\/\/expertstandard\.in/g, `https://${host}`);
+      const sitemap = await fs.promises.readFile(sitemapPath, "utf-8");
       res.type("application/xml");
       res.send(sitemap);
     } catch (err) {

@@ -373,7 +373,7 @@ function injectSeoAndPreRender(html: string, urlPath: string, host: string): str
 
         <section id="clients" style="margin-bottom: 60px; padding: 40px; border-radius: 16px; background: #ffffff; border: 1px solid #e2e8f0; text-align: center;">
           <h2 style="font-size: 32px; font-weight: 700; color: #1e293b; margin-bottom: 16px;">Our Clients</h2>
-          <p style="color: #475569; font-size: 16px; margin-bottom: 24px; line-height: 1.6;">Trusted by Hyderabad’s Industry Leaders. We manage premium facility services, 24/7 corporate housekeeping, integrated deep cleaning, and VIP valet parking solutions.</p>
+          <p style="color: #475569; font-size: 16px; margin-bottom: 24px; line-height: 1.6;">Trusted by Hyderabad’s Industry Leaders. Specializing in premier valet parking management, we also deliver 24/7 corporate housekeeping, deep cleaning, and integrated facility services for major IT corridors, hospitals, and enterprise hubs.</p>
           <div style="text-align: center; margin-bottom: 20px;">
             <img src="https://res.cloudinary.com/deed9nqtg/image/upload/v1781940211/Client_Logos_for_ESS_ydnht5.png" alt="Expert Standard Solution Trusted Client Logos" style="max-width: 100%; height: auto; max-height: 250px; object-fit: contain;" />
           </div>

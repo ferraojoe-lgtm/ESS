@@ -1451,8 +1451,7 @@ function TrustedClients() {
               Trusted by Hyderabad’s Industry Leaders
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed">
-              We manage premium facility services, 24/7 corporate housekeeping, integrated deep cleaning, 
-              and VIP valet parking solutions for major IT corridors, hospitals, and enterprise hubs.
+              Specializing in premier valet parking management, we also deliver 24/7 corporate housekeeping, deep cleaning, and integrated facility services for major IT corridors, hospitals, and enterprise hubs.
             </p>
           </motion.div>
         </div>
